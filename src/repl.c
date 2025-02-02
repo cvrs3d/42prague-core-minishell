@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 17:43:08 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/02 12:18:02 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 14:54:17 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,18 @@ static int ft_getcmd(t_program *prog)
 
 void ft_repl(t_program *prog)
 {
-	int i;
-	char *es;
-	char *ps;
+	int 	i;
+	t_cmd	*cmd;
 
 	while (ft_getcmd(prog) >= 0)
 	{
 		i = 0;
-		es = prog->buffer + ft_strlen(prog->buffer);
-		ps = prog->buffer;
-		printf("Tokens: "); // Add this line for clarity
-		while (ps < es)
-		{
-			int token = ft_gettoken(&ps, es, 0, 0);
-			printf("%c ", token); // Print each token
-		}
-		printf("\n"); // Add a newline for better readability
+		prog->es = prog->buffer + ft_strlen(prog->buffer);
+		prog->ps = prog->buffer;
+		cmd = parse(&prog->ps, prog->es);
+		if (sys_fork() == 0)
+			ft_runcmd(cmd);
+		wait(0);
+		ft_freecmd(cmd);
 	}
 }

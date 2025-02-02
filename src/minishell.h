@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:22:14 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/02 12:25:39 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 13:50:29 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ typedef struct s_program
 	t_execcmd	*execcmd;
 	char		*buffer;
 	char		*prompt;
+	char		*es;
+	char		*ps;
 }	t_program;
 
 // signals.c

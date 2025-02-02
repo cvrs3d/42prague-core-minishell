@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 17:30:35 by yustinov          #+#    #+#             */
-/*   Updated: 2025/01/30 17:41:32 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 14:56:53 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,19 @@ char	*sys_getcwd(char *buf, size_t size)
 		ft_panic(__FILE__, __LINE__, "getcwd failed");
 	}
 	return buf;
+}
+
+/*
+	fork sys call
+	wrapper
+	panics if fork() -> -1
+*/
+pid_t	sys_fork(void)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
+		panic("fork");
+	return pid;
 }
