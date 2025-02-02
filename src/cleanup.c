@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alloc.c                                            :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 16:27:16 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/02 12:31:18 by yustinov         ###   ########.fr       */
+/*   Created: 2025/02/02 12:18:47 by yustinov          #+#    #+#             */
+/*   Updated: 2025/02/02 12:22:29 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdint.h>
 
-/*
-	ft_calloc
-	Prevents an overflow allocation
-	Passes flow to the memset to clear
-	allocated memory and set it to 0
-	returns *void
-*/
-void *ft_calloc(size_t nmemb, size_t size)
+// typedef struct s_program
+// {
+// 	t_backcmd	*backcmd;
+// 	t_condcmd	*condcmd;
+// 	t_pipecmd	*pipecmd;
+// 	t_listcmd	*listcmd;
+// 	t_redircmd	*redircmd;
+// 	t_execcmd	*execcmd;
+// 	char		*buffer;
+// 	char		*prompt;
+// }	t_program;
+
+void ft_cleanup(t_program *program)
 {
-	void *ptr;
-
-	if (size != 0 && nmemb > SIZE_MAX / size)
-		return NULL;
-	ptr = malloc(nmemb * size);
-	if (!ptr)
-		return NULL;
-	ft_memset(ptr, 0, nmemb * size);
-	return ptr;
+	if (program)
+	{
+		if (program->buffer)
+			free(program->buffer);
+		if (program->prompt)
+			free(program->prompt);
+		free(program);
+	}
+	rl_clear_history();
 }

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:21:42 by yustinov          #+#    #+#             */
-/*   Updated: 2025/01/30 15:46:54 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:37:46 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,13 @@ int	main(void)
 {
 	t_program *program;
 
-	program = NULL;
-	// Ensure that at least 3 fd's are open
+    program = ft_calloc(1, sizeof(t_program));
+    if (program == NULL)
+		ft_panic(__FILE__, __LINE__, "calloc");
 	ft_check_system_fd();
-	// Set handlers on signals;
 	ft_set_signal_handlers();
-	// Initialize program config
 	ft_program_init(program);
-	// Start the main REPL
 	ft_repl(program);
-	// Ensure cleanup
 	ft_cleanup(program);
 	exit(0);
 }

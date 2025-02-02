@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:22:14 by yustinov          #+#    #+#             */
-/*   Updated: 2025/01/31 15:39:26 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:25:39 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	ft_sigquit_handler(int signal);
 void	ft_program_init(t_program *prog);
 void	ft_init_prompt(t_program *prog);
 // alloc.c
-void *ft_calloc(size_t nmemb, size_t size);
+void	*ft_calloc(size_t nmemb, size_t size);
 // memory.c
 void	*ft_memset(void *s, int c, size_t n);
 // panic.c
@@ -158,5 +158,11 @@ char	*ft_strcat(char *dest, const char *src);
 // syscall.c
 char	*sys_getcwd(char *buf, size_t size);
 char	*sys_getenv(const char *name);
+// repl.c
+void	ft_repl(t_program *prog);
+// tokenize.c
+int		ft_gettoken(char **ps, char *es, char **q, char **eq);
+// cleanup.c
+void	ft_cleanup(t_program *program);
 
 #endif

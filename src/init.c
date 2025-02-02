@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 15:52:38 by yustinov          #+#    #+#             */
-/*   Updated: 2025/01/30 17:42:30 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:43:10 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	ft_init_prompt(t_program *prog)
 */
 void	ft_program_init(t_program *prog)
 {
-	prog = (t_program *)ft_calloc(1, sizeof(t_program) * 1);
 	if (prog == NULL)
 		ft_panic(__FILE__, __LINE__, "calloc");
-	ft_init_promt(prog);
+	// rl_clear_display();
+	ft_init_prompt(prog);
 }

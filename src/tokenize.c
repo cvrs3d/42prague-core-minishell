@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:34:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/02 12:08:20 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 13:45:09 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 // # define WHITESPACES " \t\r\n\v"
 // # define SYMBOLS "<|>&;()\"'"
-
+/*
+	check_double_chars
+	functions checks for here_doc
+	symbols or append sybols being passed
+*/
 static void	check_double_chars(char **s, int *ret)
 {
 	(*s)++;
@@ -31,7 +35,13 @@ static void	check_double_chars(char **s, int *ret)
 	return ;
 }
 
-int	gettoken(char **ps, char *es, char **q, char **eq)
+/*
+	ft_gettoken
+	tokeinzes first symbol it finds in the user_input
+	it returns one char(ascii code) for every word
+	separated by spaces.
+*/
+int	ft_gettoken(char **ps, char *es, char **q, char **eq)
 {
 	char *s;
 	int ret;
@@ -44,7 +54,7 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 	ret = *s;
 	if (*s == 0)
 	{
-		// End of input
+
 	}
 	else if (strchr("|();&\"'$", *s))
 		s++;
@@ -63,48 +73,3 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 	*ps = s;
 	return ret;
 }
-
-// int gettoken(char **ps, char *es, char **q, char **eq)
-// {
-// 	char *s;
-// 	int ret;
-
-// 	s = *ps;
-// 	while (s < es && strchr(whitespace, *s))
-// 		s++;
-// 	if (q)
-// 		*q = s;
-// 	ret = *s;
-// 	switch (*s)
-// 	{
-// 	case 0:
-// 		break;
-// 	case '|':
-// 	case '(':
-// 	case ')':
-// 	case ';':
-// 	case '&':
-// 	case '<':
-// 		s++;
-// 		break;
-// 	case '>':
-// 		s++;
-// 		if (*s == '>')
-// 		{
-// 			ret = '+';
-// 			s++;
-// 		}
-// 		break;
-// 	default:
-// 		ret = 'a';
-// 		while (s < es && !strchr(whitespace, *s) && !strchr(symbols, *s))
-// 			s++;
-// 		break;
-// 	}
-// 	if (eq)
-// 		*eq = s;
-// 	while (s < es && strchr(whitespace, *s))
-// 		s++;
-// 	*ps = s;
-// 	return ret;
-// }
