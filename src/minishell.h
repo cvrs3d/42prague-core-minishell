@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:22:14 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/02 13:50:29 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:17:29 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define BLUE "\033[0;34m"
 # define WHITESPACES " \t\r\n\v"
 # define SYMBOLS "<|>&;()\"'"
+# define ERR "Error occured when %s!\n"
 
 // ENUM for types handling
 typedef enum e_type
@@ -130,12 +131,6 @@ typedef struct s_condcmd
 // Whole program's config
 typedef struct s_program
 {
-	t_backcmd	*backcmd;
-	t_condcmd	*condcmd;
-	t_pipecmd	*pipecmd;
-	t_listcmd	*listcmd;
-	t_redircmd	*redircmd;
-	t_execcmd	*execcmd;
 	char		*buffer;
 	char		*prompt;
 	char		*es;
@@ -166,5 +161,9 @@ void	ft_repl(t_program *prog);
 int		ft_gettoken(char **ps, char *es, char **q, char **eq);
 // cleanup.c
 void	ft_cleanup(t_program *program);
+// parse.c
+t_cmd	*ft_parse(t_program *prog);
+// exit.c
+void	ft_exit_on_err(char *detail);
 
 #endif

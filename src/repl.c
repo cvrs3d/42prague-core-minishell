@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 17:43:08 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/02 14:54:17 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:02:38 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ static int ft_getcmd(t_program *prog)
 	return (0);
 }
 
+/*
+	Read
+	Execute
+	Parse
+	Loop
+*/
 void ft_repl(t_program *prog)
 {
 	int 	i;
@@ -38,7 +44,7 @@ void ft_repl(t_program *prog)
 		i = 0;
 		prog->es = prog->buffer + ft_strlen(prog->buffer);
 		prog->ps = prog->buffer;
-		cmd = parse(&prog->ps, prog->es);
+		cmd = ft_parse(prog);
 		if (sys_fork() == 0)
 			ft_runcmd(cmd);
 		wait(0);
