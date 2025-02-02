@@ -6,31 +6,62 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:34:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/01/31 16:19:55 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/02 12:08:20 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_gettoken(char **ps, char *es, char **q, char **eq)
+// # define WHITESPACES " \t\r\n\v"
+// # define SYMBOLS "<|>&;()\"'"
+
+static void	check_double_chars(char **s, int *ret)
 {
-	char	*s;
-	int		ret;
+	(*s)++;
+	if (**s == '<')
+	{
+		*ret = 'h';
+		(*s)++;
+	}
+	else if (**s == '>')
+	{
+		*ret = '+';
+		(*s)++;
+	}
+	return ;
+}
+
+int	gettoken(char **ps, char *es, char **q, char **eq)
+{
+	char *s;
+	int ret;
 
 	s = *ps;
-	while (s < es && ft_strchr(WHITESPACES, *s))
+	while (s < es && strchr(WHITESPACES, *s))
 		s++;
 	if (q)
 		*q = s;
 	ret = *s;
-	if (*s != 0 && (ft_strchr(SYMBOLS, *s)))
+	if (*s == 0)
 	{
-		if (*s == '>')
-		{
-			
-		}
+		// End of input
 	}
-
+	else if (strchr("|();&\"'$", *s))
+		s++;
+	else if (strchr("><", *s))
+		check_double_chars(&s, &ret);
+	else
+	{
+		ret = 'a';
+		while (s < es && !strchr(WHITESPACES, *s) && !strchr(SYMBOLS, *s))
+			s++;
+	}
+	if (eq)
+		*eq = s;
+	while (s < es && strchr(WHITESPACES, *s))
+		s++;
+	*ps = s;
+	return ret;
 }
 
 // int gettoken(char **ps, char *es, char **q, char **eq)
