@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 12:44:09 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:41:21 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,20 @@ static void	handle_exec_cmd(t_execcmd *ecmd)
 
 static void	handle_redir_cmd(t_redircmd *rcmd)
 {
-	close(rcmd->fd);
-	// printf("fd closed -> %d\nmode->%d\n", rcmd->fd, rcmd->mode);
-	if (open(rcmd->file, rcmd->mode) < 0)
+	int	fd;
+
+	printf("Mode: %d\n", rcmd->mode);
+	if (rcmd->mode == HEREDOC)
+		handle_heredoc_cmd(rcmd->file);
+	else
 	{
-		fprintf(stderr, "open %s failed\n", rcmd->file);
-		exit(1);
+		close(rcmd->fd);
+		fd = open(rcmd->file, rcmd->mode, 0644);
+		if (fd < 0)
+		{
+			fprintf(stderr, "open %s failed\n", rcmd->file);
+			exit(1);
+		}
 	}
 	runcmd(rcmd->cmd);
 }

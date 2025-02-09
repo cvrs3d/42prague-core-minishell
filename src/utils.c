@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:13:07 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 16:08:45 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:18:41 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,19 @@ int	getcmd(char	*buf, int nbuf)
 	add_history(buf);
 	free(input);
 	return (0);
+}
+
+void	ft_putendl_fd(const char *s, int fd)
+{
+	if (!s)
+	{
+		write (fd, "(null)\n", 7);
+		return ;
+	}
+	while (*s != '\0')
+	{
+		write (fd, s, 1);
+		s++;
+	}
+	write (fd, "\n", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 18:37:54 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:41:32 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@
 # define STDIN 101
 # define APPEND 102
 # define HEREDOC 103
+# define HEREDOC_PATH "/tmp/hrdc_tpm"
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_shell
+{
+	t_env	*env_list;
+	char	**envp;
+}	t_shell;
 
 typedef struct s_cmd
 {
@@ -102,7 +116,6 @@ t_cmd	*parseexec(char **ps, char *es);
 void	ft_sigquit_handler(int sig);
 // t_cmd	*nulterminate(t_cmd *cmd);
 int		ft_try_find_cmd(t_execcmd *ecmd);
-void	runcmd(t_cmd *cmd);
 t_cmd	*nulterminate(t_cmd *cmd);
 void	handle_exec_null(t_execcmd *ecmd);
 void	handle_redir_null(t_redircmd *rcmd);
@@ -110,5 +123,15 @@ void	handle_pipe_null(t_pipecmd	*pcmd);
 void	handle_list_null(t_listcmd	*lcmd);
 void	handle_back_null(t_backcmd	*bcmd);
 void	print_tree(t_cmd *cmd, int depth);
+void	handle_heredoc_cmd(char *limiter);
+void	ft_putendl_fd(const char *s, int fd);
+void	unset_var(t_shell *shell, char *key);
+void	export_var(t_shell *shell, char *key, char *value);
+void	init_env(t_shell *shell, char **envp);
+t_env	*create_env_node(char *key, char *value);
+char	*ft_strdup(const char *s);
+char	**ft_split(char const *s, char c);
+void	ft_free_split(char **split);
+void	cleanup_env(t_shell *shell);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 19:09:51 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:38:13 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,21 @@ static void	setup_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-static void	execute_command(char *buffer)
+static void	execute_command(char *buffer, t_shell *sh)
 {
 	if (fork1() == 0)
-		runcmd(parsecmd(buffer));
+		runcmd(parsecmd(buffer), sh);
 	wait(0);
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	static char	buffer[100];
+	t_shell		shell;
 
+	(void)argc;
+	(void)argv;
+	init_env(&shell, envp);
 	setup_signals();
 	init_shell_fd();
 	while (getcmd(buffer, sizeof(buffer)) >= 0)
@@ -59,7 +63,8 @@ int	main(void)
 			handle_cd_command(buffer);
 			continue ;
 		}
-		execute_command(buffer);
+		execute_command(buffer, &shell);
 	}
+	cleanup_env(&shell);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 11:18:36 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:11:52 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_cmd	*parseexec(char **ps, char *es)
 	ret = execcmd();
 	ret = parseredirs(ret, ps, es);
 	ret = parse_arguments(ret, ps, es);
-	// print_tree(ret, 0);
+	print_tree(ret, 0);
 	return (ret);
 }
 
