@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 15:09:04 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:32:40 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@ int	get_token_append(char **ps, char *s)
 {
 	int	ret;
 
-	ret = '>';
+	ret = *s;
 	s++;
 	if (*s == '>')
 	{
 		ret = '+';
+		s++;
+	}
+	else if (*s == '<')
+	{
+		ret = 'h';
 		s++;
 	}
 	*ps = s;
@@ -50,9 +55,9 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 	ret = *s;
 	if (*s == 0)
 		return (0);
-	else if (strchr("|();", *s))
+	else if (strchr("|();&", *s))
 		*ps = s + 1;
-	else if (*s == '>' || *s == '<' || *s == '&')
+	else if (*s == '>' || *s == '<')
 		ret = get_token_append(ps, s);
 	else
 		ret = get_token_word(ps, es, s);
@@ -60,6 +65,7 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 		*eq = *ps;
 	while (*ps < es && strchr(WHITESPACE, **ps))
 		(*ps)++;
+	// printf("token: %c\n", ret);
 	return (ret);
 }
 

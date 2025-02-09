@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 19:10:14 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 11:18:36 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ static t_cmd	*parse_arguments(t_cmd *ret, char **ps, char *es)
 	int			argc;
 	int			tok;
 
-	cmd = (t_execcmd *)ret;
+	if (ret->type == REDIR)
+	{
+		cmd = (t_execcmd *)((t_redircmd *)ret)->cmd;
+		(t_cmd *)ret;
+	}
+	else
+		cmd = (t_execcmd *)ret;
 	argc = 0;
 	while (!peek(ps, es, "|)&;"))
 	{
@@ -58,6 +64,7 @@ t_cmd	*parseexec(char **ps, char *es)
 	ret = execcmd();
 	ret = parseredirs(ret, ps, es);
 	ret = parse_arguments(ret, ps, es);
+	// print_tree(ret, 0);
 	return (ret);
 }
 

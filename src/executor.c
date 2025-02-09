@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 17:46:05 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:44:09 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	handle_exec_cmd(t_execcmd *ecmd)
 static void	handle_redir_cmd(t_redircmd *rcmd)
 {
 	close(rcmd->fd);
-	if (open(rcmd->file, rcmd->mode, 0644) < 0)
+	// printf("fd closed -> %d\nmode->%d\n", rcmd->fd, rcmd->mode);
+	if (open(rcmd->file, rcmd->mode) < 0)
 	{
 		fprintf(stderr, "open %s failed\n", rcmd->file);
 		exit(1);

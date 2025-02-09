@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:01:03 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 19:10:02 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/09 12:39:14 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ t_cmd	*parseredirs(t_cmd *cmd, char **ps, char *es)
 		if (gettoken(ps, es, &q, &eq) != 'a')
 			panic("Missing file for redirection");
 		if (tok == '<')
-			cmd = redircmd(cmd, q, eq, STDOUT);
-		else if (tok == '>')
 			cmd = redircmd(cmd, q, eq, STDIN);
+		else if (tok == '>')
+			cmd = redircmd(cmd, q, eq, STDOUT);
 		else if (tok == '+')
 			cmd = redircmd(cmd, q, eq, APPEND);
 		else if (tok == 'h')
