@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 15:55:17 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 11:19:25 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:23:03 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	handle_exec_null(t_execcmd *ecmd)
 
 void	handle_redir_null(t_redircmd *rcmd)
 {
-	// printf("nulterminating");
 	nulterminate(rcmd->cmd);
-	// for (int i = 0; (rcmd->file + i) < rcmd->efile; i++)
-	// 	printf("->%c\n", rcmd->file[i]);
 	*rcmd->efile = 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:37:20 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 18:37:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:55:33 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ static void print_back(t_backcmd *cmd, int depth)
 	print_tree(cmd->cmd, depth + 1);
 }
 
+/**
+ * @brief Prints the command tree structure.
+ *
+ * This function recursively prints the command tree structure starting from
+ * the given command node. Each level of depth in the tree is indented to
+ * visually represent the hierarchy.
+ *
+ * @param cmd Pointer to the command node to start printing from.
+ * @param depth The current depth level in the tree, used for indentation.
+ */
 void print_tree(t_cmd *cmd, int depth)
 {
 	if (!cmd)

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:13:07 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 15:18:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/10 17:18:44 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ int	fork1(void)
 	return (pid);
 }
 
+/**
+ * @brief Reads a command from the standard input into the provided buffer.
+ *
+ * This function reads up to `nbuf` characters from the standard input and stores
+ * them in the buffer `buf`. It ensures that the buffer is null-terminated.
+ *
+ * @param buf A pointer to the buffer where the command will be stored.
+ * @param nbuf The maximum number of characters to read into the buffer.
+ * @return The number of characters read, or -1 if an error occurs.
+ */
 int	getcmd(char	*buf, int nbuf)
 {
 	char	*input;

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:12:41 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 14:00:35 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:06:17 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ t_cmd	*redircmd(t_cmd *subcmd, char *file, char *efile, int mode)
 	cmd->cmd = subcmd;
 	cmd->file = file;
 	cmd->efile = efile;
-	if (mode == STDIN || mode == HEREDOC)
+	if (mode == STDIN)
+	{
+		cmd->mode = O_WRONLY;
+		cmd->fd = 0;
+	}
+	else if (mode == HEREDOC)
 	{
 		cmd->mode = HEREDOC;
 		cmd->fd = 0;

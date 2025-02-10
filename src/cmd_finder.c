@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:23:36 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/08 15:04:27 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:47:54 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,27 @@ static int	check_executable(char *path, t_execcmd *ecmd)
 	return (-1);
 }
 
-int	ft_try_find_cmd(t_execcmd *ecmd)
+int	ft_try_find_cmd(t_execcmd *ecmd, t_shell *shell)
 {
 	char	*path_env;
 	char	*path;
 
 	if (access(ecmd->argv[0], X_OK) == 0)
 		return (0);
-	path_env = getenv("PATH");
+	// path_env = getenv("PATH");
+	path_env = ft_getenv("PATH", shell);
 	if (path_env == NULL)
 		return (-1);
 	path = strtok(path_env, ":");
 	while (path != NULL)
 	{
 		if (check_executable(path, ecmd) == 0)
+		{
+			free(path_env);
 			return (0);
+		}
 		path = strtok(NULL, ":");
 	}
+	free(path_env);
 	return (-1);
 }

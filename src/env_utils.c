@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:41:45 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 15:31:52 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:38:54 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_env(t_shell *shell, char **envp)
 	int		i;
 
 	shell->env_list = NULL;
+	shell->envp = NULL;
 	i = 0;
 	while (envp[i])
 	{
@@ -45,6 +46,7 @@ void	init_env(t_shell *shell, char **envp)
 		ft_free_split(split);
 		i++;
 	}
+	update_env_array(shell);
 }
 
 void	export_var(t_shell *shell, char *key, char *value)
@@ -58,6 +60,7 @@ void	export_var(t_shell *shell, char *key, char *value)
 		{
 			free(env->value);
 			env->value = ft_strdup(value);
+			update_env_array(shell);
 			return ;
 		}
 		env = env->next;
@@ -65,6 +68,7 @@ void	export_var(t_shell *shell, char *key, char *value)
 	env = create_env_node(key, value);
 	env->next = shell->env_list;
 	shell->env_list = env;
+	update_env_array(shell);
 }
 
 void	unset_var(t_shell *shell, char *key)
@@ -85,6 +89,7 @@ void	unset_var(t_shell *shell, char *key)
 			free(env->key);
 			free(env->value);
 			free(env);
+			update_env_array(shell);
 			return ;
 		}
 		prev = env;
@@ -106,4 +111,6 @@ void	cleanup_env(t_shell *shell)
 		free(env);
 		env = next;
 	}
+	if (shell->envp)
+		ft_free_split(shell->envp);
 }

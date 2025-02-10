@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 15:41:32 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:56:45 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_sigquit_handler(int sig);
 int		fork1(void);
 void	panic(char *s);
 t_cmd	*parsecmd(char *s);
-void	runcmd(t_cmd *cmd);
+void	runcmd(t_cmd *cmd, t_shell *sh);
 int		gettoken(char **ps, char *es, char **q, char **eq);
 int		getcmd(char *buf, int nbuf);
 int		peek(char **ps, char *es, char *toks);
@@ -115,7 +115,7 @@ t_cmd	*parseblock(char **ps, char *es);
 t_cmd	*parseexec(char **ps, char *es);
 void	ft_sigquit_handler(int sig);
 // t_cmd	*nulterminate(t_cmd *cmd);
-int		ft_try_find_cmd(t_execcmd *ecmd);
+int		ft_try_find_cmd(t_execcmd *ecmd, t_shell *shell);
 t_cmd	*nulterminate(t_cmd *cmd);
 void	handle_exec_null(t_execcmd *ecmd);
 void	handle_redir_null(t_redircmd *rcmd);
@@ -133,5 +133,9 @@ char	*ft_strdup(const char *s);
 char	**ft_split(char const *s, char c);
 void	ft_free_split(char **split);
 void	cleanup_env(t_shell *shell);
+void	update_env_array(t_shell *shell);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_getenv(const char *key, t_shell *shell);
+int		check_builtins(char *buffer, t_shell *shell);
 
 #endif
