@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:32:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 17:56:46 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:32:13 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,28 @@ int	handle_pwd_command(char *buffer, t_shell *shell)
 	ADD SUPPORT FOR EXITTING WITH PROVIDED ERROR CODE
 	IF NOTHING PROVIDED EXIT WITH 0
 	IF CANNOT ATOI THAN EXIT WITH -1
+	REWRITE ATOI SO IT RETURNS -1 ON ERROR
 */
 int	handle_exit_command(char *buffer, t_shell *shell)
 {
+	char	**args;
+	int		e_code;
+
 	(void)buffer;
-	(void)shell;
+	args = ft_split(buffer, ' ');
+	if (!args)
+	{
+		shell->e_code = EXIT_FAILURE;
+		return (-1);
+	}
+	if (args[1])
+	{
+		e_code = atoi(args[1]);
+		if (e_code == 0)
+			printf("integer required %s\n", args[1]);
+		shell->e_code = e_code;
+	}
+	ft_free_split(args);
 	printf("exit\n");
 	return(-1);
 }
@@ -61,5 +78,6 @@ int	handle_echo_command(char *buffer, t_shell *shell)
 	}
 	if (new_line_flag != 0)
 		printf("\n");
+	ft_free_split(args);
 	return (1);
 }

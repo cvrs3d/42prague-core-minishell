@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 17:57:57 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:26:23 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define APPEND 102
 # define HEREDOC 103
 # define HEREDOC_PATH "/tmp/hrdc_tpm"
+# define EXIT_CMD_NOT_FOUND 2
 
 typedef struct s_env
 {

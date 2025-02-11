@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:10:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 18:00:34 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:12:41 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,32 @@
  */
 // TODO:
 // IMPLEMENT cd without args
-static int	handle_cd_command(char *buffer)
+static int	handle_cd_command(char *buffer, t_shell *shell)
 {
-	if (chdir(buffer + 3) < 0)
+	char	**args;
+	char	*home;
+	int		ret;
+
+	args = ft_split(buffer, ' ');
+	if (!args)
+		return (1);
+	if (!args[1])
 	{
-		printf("cannot cd into: %s\n", buffer);
-		return(-1);
+		home  = ft_getenv("HOME", shell);
+		if (!home)
+		{
+			printf("cd: HOME not set\n");
+			ft_free_split(args);
+			return (1);
+		}
+		ret = chdir(home);
+		free(home);
 	}
+	else
+		ret = chdir(args[1]);
+	if (ret == -1)
+		printf("cannot cd into: %s\n", buffer);
+	ft_free_split(args);
 	return (1);
 }
 
@@ -136,8 +155,8 @@ static int	handle_export_command(char *buffer, t_shell *shell)
  */
 int		check_builtins(char *buffer, t_shell *shell)
 {
-	if (buffer[0] == 'c' && buffer[1] == 'd' && buffer[2] == ' ')
-		return (handle_cd_command(buffer));
+	if (strncmp(buffer, "cd", 2) == 0)
+		return (handle_cd_command(buffer, shell));
 	else if (strncmp(buffer, "env", 3) == 0)
 		return (handle_env_command(shell));
 	else if (strncmp(buffer, "unset", 5) == 0)
