@@ -22,7 +22,13 @@ FUNCTIONALITY
 {
 	For now just skipping anything what is inside " " or ''
 }
-6) $ evaluation (NOT IMPLEMENTED)
+6) $ evaluation
+{
+	"$VAR"
+	$VAR
+	'$VAR'
+	$?
+}
 7) SIGNALS
 {
 	Ctrl-D -> prints exit and exit()

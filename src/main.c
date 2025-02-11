@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 17:29:38 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:59:51 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	main(int argc, char **argv, char **envp)
 		/*	Check for quotes closing and evaluate $ */
 		// if (check_builtins(buffer, &shell) == 1)
 		// 	continue ;
+		if (evaluate_input(buffer, &shell) == -1)
+			break ;
 		ret = check_builtins(buffer, &shell);
 		if (ret == 1)
 			continue ;
@@ -78,5 +80,6 @@ int	main(int argc, char **argv, char **envp)
 		execute_command(buffer, &shell);
 	}
 	cleanup_env(&shell);
+	clear_history();
 	exit(0);
 }

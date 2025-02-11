@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 19:26:23 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 20:59:32 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,12 @@ int		check_builtins(char *buffer, t_shell *shell);
 int		handle_pwd_command(char *buffer, t_shell *shell);
 int		handle_exit_command(char *buffer, t_shell *shell);
 int		handle_echo_command(char *buffer, t_shell *shell);
+int		evaluate_input(char *buffer, t_shell *shell);
+int		ft_isalnum(int c);
+int		ft_isalpha(int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+size_t	ft_strlen(const char *s);
+char	*ft_itoa(int n);
 
 #endif
