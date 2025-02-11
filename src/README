@@ -29,3 +29,13 @@ FUNCTIONALITY
 	Ctrl-C -> prints ^C and new  line
 	Ctrl-\ -> does nothing
 }
+8) BUILTINS
+{
+	cd (YES but no default behaviour with no args)
+	echo [-n] (YES))
+	pwd (YES)
+	export (YES, working with t_shell env_list)
+	unset (YES)
+	env (YES)
+	exit (YES);
+}

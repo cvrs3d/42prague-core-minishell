@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:10:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 17:17:33 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:00:34 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@
  *         Typically, 0 indicates success, while a non-zero value indicates
  *         an error.
  */
+// TODO:
+// IMPLEMENT cd without args
 static int	handle_cd_command(char *buffer)
 {
 	if (chdir(buffer + 3) < 0)
-		fprintf(stderr, "cannot cd %s\n", buffer + 3);
+	{
+		printf("cannot cd into: %s\n", buffer);
+		return(-1);
+	}
 	return (1);
 }
 
@@ -127,6 +132,7 @@ static int	handle_export_command(char *buffer, t_shell *shell)
  * Return: An integer indicating the result of the check. Typically, this
  *         would be a boolean-like value where 0 means the command is not
  *         a built-in and 1 means it is a built-in.
+ * 			ON SUCCESS ALL HANDLERS RETURN 1 EXEPT EXIT
  */
 int		check_builtins(char *buffer, t_shell *shell)
 {
@@ -138,5 +144,11 @@ int		check_builtins(char *buffer, t_shell *shell)
 		return (handle_unset_command(buffer, shell));
 	else if (strncmp(buffer, "export", 6) == 0)
 		return (handle_export_command(buffer, shell));
+	else if (strncmp(buffer, "pwd", 3) == 0)
+		return (handle_pwd_command(buffer, shell));
+	else if (strncmp(buffer, "echo", 4) == 0)
+		return (handle_echo_command(buffer, shell));
+	else if (strncmp(buffer, "exit", 4) == 0)
+		return (handle_exit_command(buffer, shell));
 	return (137);
 }

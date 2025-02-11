@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 17:22:39 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:19:47 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int	get_token_word(char **ps, char *es, char *s)
 
 /*
 	For no skip anything in quotes no matter " or '
+	Removed char *es from function
+	In general es could not be useful because readline returns \0 termed
+	buffer.
 */
 int	get_token_quoted(char **ps, char *es, char *s, char **q, char **eq)
 {
@@ -55,9 +58,9 @@ int	get_token_quoted(char **ps, char *es, char *s, char **q, char **eq)
 	s++;
 	if (q)
 		*q = s;
-	while (s < es && *s != quote)
+	while (*s != '\0' && *s != quote)
 		s++;
-	if (s >= es)
+	if (*s == '\0')
 	{
 		*ps = start + 1;
 		return ('a');

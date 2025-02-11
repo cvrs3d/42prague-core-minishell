@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 16:56:45 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:57:57 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <linux/limits.h>
 
 # define EXEC 1
 # define REDIR 2
@@ -49,6 +50,7 @@ typedef struct s_shell
 {
 	t_env	*env_list;
 	char	**envp;
+	int		e_code;
 }	t_shell;
 
 typedef struct s_cmd
@@ -137,5 +139,8 @@ void	update_env_array(t_shell *shell);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_getenv(const char *key, t_shell *shell);
 int		check_builtins(char *buffer, t_shell *shell);
+int		handle_pwd_command(char *buffer, t_shell *shell);
+int		handle_exit_command(char *buffer, t_shell *shell);
+int		handle_echo_command(char *buffer, t_shell *shell);
 
 #endif

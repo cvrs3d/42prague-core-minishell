@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 17:32:29 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:29:38 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,24 @@ int	main(int argc, char **argv, char **envp)
 {
 	static char	buffer[100];
 	t_shell		shell;
+	int			ret;
 
 	(void)argc;
 	(void)argv;
 	init_env(&shell, envp);
 	setup_signals();
 	init_shell_fd();
-	// unset_var(&shell, "PATH");
+	//unset_var(&shell, "PATH");
 	while (getcmd(buffer, sizeof(buffer)) >= 0)
 	{
-		if (check_builtins(buffer, &shell) == 1)
+		/*	Check for quotes closing and evaluate $ */
+		// if (check_builtins(buffer, &shell) == 1)
+		// 	continue ;
+		ret = check_builtins(buffer, &shell);
+		if (ret == 1)
 			continue ;
+		if (ret == -1)
+			break ;
 		execute_command(buffer, &shell);
 	}
 	cleanup_env(&shell);

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:41:45 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 14:38:54 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:59:16 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_env(t_shell *shell, char **envp)
 
 	shell->env_list = NULL;
 	shell->envp = NULL;
+	shell->e_code = 0;
 	i = 0;
 	while (envp[i])
 	{
