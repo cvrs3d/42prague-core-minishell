@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:07:02 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:53:41 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,8 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 {
 	char	*s;
 	int		ret;
-	int		qt;
 
 	s = *ps;
-	qt = 0;
 	while (s < es && strchr(WHITESPACE, *s))
 		s++;
 	if (q)

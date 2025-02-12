@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:07:56 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:54:25 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,7 @@ static t_cmd	*parse_arguments(t_cmd *ret, char **ps, char *es)
 	int			argc;
 	int			tok;
 
-	if (ret->type == REDIR)
-	{
-		cmd = (t_execcmd *)((t_redircmd *)ret)->cmd;
-		(t_cmd *)ret;
-	}
-	else
-		cmd = (t_execcmd *)ret;
+	cmd = (t_execcmd *)ret;
 	argc = 0;
 	while (!peek(ps, es, "|)&;"))
 	{

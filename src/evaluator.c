@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 20:13:41 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:02:48 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:52:33 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,36 +53,6 @@ static char	*expand_exit_status(char *str, int *i, t_shell *shell)
 	*i += ft_strlen(exit_status) - 1;
 	free(str);
 	free(exit_status);
-	return (result);
-}
-
-static char	*expand_variable(char *str, int *i, t_shell *shell)
-{
-	int		j;
-	char	*v_name;
-	char	*v_val;
-	char	*before;
-	char	*after;
-	char	*result;
-
-	j = *i + 1;
-	while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
-		j++;
-	v_name = ft_substr(str, *i + 1, j - *i - 1);
-	v_val = ft_getenv(v_name, shell);
-	if (!v_val)
-		v_val = ft_strdup("");
-	before = ft_substr(str, 0, *i);
-	after = ft_strdup(str + j);
-	result = ft_strjoin(before, v_val);
-	free(before);
-	before = result;
-	result = ft_strjoin(before, after);
-	free(after);
-	free(v_name);
-	*i += ft_strlen(v_val);
-	free(v_val);
-	free(str);
 	return (result);
 }
 

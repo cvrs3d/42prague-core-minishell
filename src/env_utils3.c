@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:48:09 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:00:54 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:11:55 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*create_env_string(t_env *curr)
 	char	*tmp;
 	char	*env_str;
 
-	tmp = ft_strjoin(curr->key, '=');
+	tmp = ft_strjoin(curr->key, "=");
 	if (!tmp)
 		return (NULL);
 	env_str = ft_strjoin(tmp, curr->value);
