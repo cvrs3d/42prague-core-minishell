@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:32:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 19:32:13 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:31:37 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	handle_exit_command(char *buffer, t_shell *shell)
 	}
 	ft_free_split(args);
 	printf("exit\n");
-	return(-1);
+	return (-1);
 }
 
 int	handle_echo_command(char *buffer, t_shell *shell)

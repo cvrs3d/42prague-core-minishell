@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 16:03:26 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:04:33 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	handle_redir_cmd(t_redircmd *rcmd, t_shell *sh)
 	runcmd(rcmd->cmd, sh);
 }
 
+// deleted exit() not sure if it will have effect
 static void	handle_pipe_cmd(t_pipecmd *pcmd, t_shell *sh)
 {
 	int	p[2];
@@ -57,7 +58,6 @@ static void	handle_pipe_cmd(t_pipecmd *pcmd, t_shell *sh)
 		close(p[0]);
 		close(p[1]);
 		runcmd(pcmd->left, sh);
-		exit(1);
 	}
 	if (fork1() == 0)
 	{
@@ -66,7 +66,6 @@ static void	handle_pipe_cmd(t_pipecmd *pcmd, t_shell *sh)
 		close(p[0]);
 		close(p[1]);
 		runcmd(pcmd->right, sh);
-		exit(1);
 	}
 	close(p[0]);
 	close(p[1]);

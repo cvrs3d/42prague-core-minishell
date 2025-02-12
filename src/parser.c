@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 16:49:27 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:07:56 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,14 @@ t_cmd	*parsecmd(char *s)
 		panic("syntax");
 	}
 	nulterminate(cmd);
-	// print_tree(cmd, 0);
 	return (cmd);
 }
 
 /**
  * @brief Null terminates a command structure
  *
- * This function adds null termination to the command structure and its components.
+ * This function adds null termination to the
+ * command structure and its components.
  * It's used to ensure proper termination of command strings and arguments.
  *
  * @param cmd Pointer to the command structure to be null terminated

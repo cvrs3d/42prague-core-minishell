@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:23:36 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 15:47:54 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:40:58 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	ft_try_find_cmd(t_execcmd *ecmd, t_shell *shell)
 
 	if (access(ecmd->argv[0], X_OK) == 0)
 		return (0);
-	// path_env = getenv("PATH");
 	path_env = ft_getenv("PATH", shell);
 	if (path_env == NULL)
 		return (-1);

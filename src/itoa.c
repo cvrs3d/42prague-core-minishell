@@ -6,15 +6,15 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 20:58:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 20:59:04 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:05:40 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int get_num_len(int n)
+static int	get_num_len(int n)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (n <= 0)
@@ -27,10 +27,10 @@ static int get_num_len(int n)
 	return (len);
 }
 
-static void fill_num_str(char *str, int n, int len)
+static void	fill_num_str(char *str, int n, int len)
 {
-	int i;
-	long num;
+	int		i;
+	long	num;
 
 	num = n;
 	if (num < 0)
@@ -50,10 +50,10 @@ static void fill_num_str(char *str, int n, int len)
 	str[len] = '\0';
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	char *str;
-	int len;
+	char	*str;
+	int		len;
 
 	len = get_num_len(n);
 	str = (char *)malloc(sizeof(char) * (len + 1));

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 20:59:51 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:05:52 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,8 @@ int	main(int argc, char **argv, char **envp)
 	init_env(&shell, envp);
 	setup_signals();
 	init_shell_fd();
-	//unset_var(&shell, "PATH");
 	while (getcmd(buffer, sizeof(buffer)) >= 0)
 	{
-		/*	Check for quotes closing and evaluate $ */
-		// if (check_builtins(buffer, &shell) == 1)
-		// 	continue ;
 		if (evaluate_input(buffer, &shell) == -1)
 			break ;
 		ret = check_builtins(buffer, &shell);

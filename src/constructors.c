@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_utils.c                                        :+:      :+:    :+:   */
+/*   constructors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 13:12:41 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 16:06:17 by yustinov         ###   ########.fr       */
+/*   Created: 2025/02/12 12:35:55 by yustinov          #+#    #+#             */
+/*   Updated: 2025/02/12 12:38:46 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_cmd	*execcmd(void)
-{
-	t_execcmd	*cmd;
-
-	cmd = malloc(sizeof(*cmd));
-	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = EXEC;
-	return ((t_cmd *)cmd);
-}
-
-t_cmd	*redircmd(t_cmd *subcmd, char *file, char *efile, int mode)
-{
-	t_redircmd	*cmd;
-
-	cmd = malloc(sizeof(*cmd));
-	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = REDIR;
-	cmd->cmd = subcmd;
-	cmd->file = file;
-	cmd->efile = efile;
-	if (mode == STDIN)
-	{
-		cmd->mode = O_WRONLY;
-		cmd->fd = 0;
-	}
-	else if (mode == HEREDOC)
-	{
-		cmd->mode = HEREDOC;
-		cmd->fd = 0;
-	}
-	else if (mode == STDOUT)
-	{
-		cmd->mode = O_WRONLY | O_CREAT | O_TRUNC;
-		cmd->fd = 1;
-	}
-	else if (mode == APPEND)
-	{
-		cmd->mode = O_WRONLY | O_CREAT | O_APPEND;
-		cmd->fd = 1;
-	}
-	return ((t_cmd *)cmd);
-}
 
 t_cmd	*pipecmd(t_cmd *left, t_cmd *right)
 {
@@ -87,5 +44,15 @@ t_cmd	*backcmd(t_cmd *subcmd)
 	ft_memset(cmd, 0, sizeof(*cmd));
 	cmd->type = BACK;
 	cmd->cmd = subcmd;
+	return ((t_cmd *)cmd);
+}
+
+t_cmd	*execcmd(void)
+{
+	t_execcmd	*cmd;
+
+	cmd = malloc(sizeof(*cmd));
+	ft_memset(cmd, 0, sizeof(*cmd));
+	cmd->type = EXEC;
 	return ((t_cmd *)cmd);
 }

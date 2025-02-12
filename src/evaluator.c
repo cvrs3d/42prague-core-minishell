@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 20:13:41 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 21:28:53 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:02:48 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_quotes(char *str)
 	return (1);
 }
 
-static char *expand_exit_status(char *str, int *i, t_shell *shell)
+static char	*expand_exit_status(char *str, int *i, t_shell *shell)
 {
 	char	*before;
 	char	*after;
@@ -93,10 +93,7 @@ int	evaluate_input(char *buffer, t_shell *shell)
 	char	*result;
 
 	if (!check_quotes(buffer))
-	{
-		printf("unclosed quotes: %s\n", buffer);
-		return (1);
-	}
+		return (1, printf("unclosed quotes: %s\n", buffer));
 	result = ft_strdup(buffer);
 	i = 0;
 	in_quotes = 0;

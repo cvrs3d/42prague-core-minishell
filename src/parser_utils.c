@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 17:19:47 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:07:02 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	get_token_word(char **ps, char *es, char *s)
 	In general es could not be useful because readline returns \0 termed
 	buffer.
 */
-int	get_token_quoted(char **ps, char *es, char *s, char **q, char **eq)
+int	get_token_quoted(char **ps, char *s, char **q, char **eq)
 {
 	char	quote;
 	char	*start;
@@ -98,7 +98,7 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 	if (*s == 0)
 		return (0);
 	else if (strchr("\"\'", *s))
-		return (get_token_quoted(ps, es, s, q, eq));
+		return (get_token_quoted(ps, s, q, eq));
 	else if (strchr("|();&", *s))
 		*ps = s + 1;
 	else if (*s == '>' || *s == '<')

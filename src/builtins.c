@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:10:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 19:12:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:31:14 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
  *         Typically, 0 indicates success, while a non-zero value indicates
  *         an error.
  */
-// TODO:
-// IMPLEMENT cd without args
 static int	handle_cd_command(char *buffer, t_shell *shell)
 {
 	char	**args;
@@ -36,7 +34,7 @@ static int	handle_cd_command(char *buffer, t_shell *shell)
 		return (1);
 	if (!args[1])
 	{
-		home  = ft_getenv("HOME", shell);
+		home = ft_getenv("HOME", shell);
 		if (!home)
 		{
 			printf("cd: HOME not set\n");
@@ -61,8 +59,10 @@ static int	handle_cd_command(char *buffer, t_shell *shell)
  * the current environment variables. It takes a pointer to the shell
  * structure as an argument to access the necessary context and data.
  *
- * @param shell A pointer to the t_shell structure containing the shell's state and data.
- * @return An integer representing the success or failure of the command execution.
+ * @param shell A pointer to
+ * the t_shell structure containing the shell's state and data.
+ * @return An integer
+ * representing the success or failure of the command execution.
  */
 static int	handle_env_command(t_shell *shell)
 {
@@ -86,7 +86,8 @@ static int	handle_env_command(t_shell *shell)
  * @param buffer A string containing the command and its arguments.
  * @param shell A pointer to the shell structure containing the shell's state.
  *
- * @return An integer status code indicating the success or failure of the operation.
+ * @return An integer status code
+ * indicating the success or failure of the operation.
  */
 static int	handle_unset_command(char *buffer, t_shell *shell)
 {
@@ -113,9 +114,12 @@ static int	handle_unset_command(char *buffer, t_shell *shell)
  * variables in the shell. It parses the input buffer and updates the shell's
  * environment accordingly.
  *
- * @param buffer The input buffer containing the export command and its arguments.
- * @param shell A pointer to the shell structure containing the current state of the shell.
- * @return An integer status code indicating the success or failure of the command.
+ * @param buffer The input buffer
+ * containing the export command and its arguments.
+ * @param shell A pointer to the
+ * shell structure containing the current state of the shell.
+ * @return An integer status code
+ * indicating the success or failure of the command.
  */
 static int	handle_export_command(char *buffer, t_shell *shell)
 {
@@ -151,9 +155,9 @@ static int	handle_export_command(char *buffer, t_shell *shell)
  * Return: An integer indicating the result of the check. Typically, this
  *         would be a boolean-like value where 0 means the command is not
  *         a built-in and 1 means it is a built-in.
- * 			ON SUCCESS ALL HANDLERS RETURN 1 EXEPT EXIT
+ * ON SUCCESS ALL HANDLERS RETURN 1 EXEPT EXIT
  */
-int		check_builtins(char *buffer, t_shell *shell)
+int	check_builtins(char *buffer, t_shell *shell)
 {
 	if (strncmp(buffer, "cd", 2) == 0)
 		return (handle_cd_command(buffer, shell));

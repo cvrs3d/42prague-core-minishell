@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:01:03 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/10 17:20:16 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:08:23 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ t_cmd	*parseblock(char **ps, char *es)
 }
 
 /**
- * Parses and processes redirection operators and their corresponding files in the command
+ * Parses and processes redirection
+ * operators and their corresponding files in the command
  *
  * @param cmd The command structure to store the redirection information
  * @param ps Pointer to the current position in the input string
  * @param es Pointer to the end of the input string
  *
- * @return Modified command structure with redirection information, or NULL if parsing fails
+ * @return Modified command structure with
+ * redirection information, or NULL if parsing fails
  */
 t_cmd	*parseredirs(t_cmd *cmd, char **ps, char *es)
 {
@@ -75,7 +77,8 @@ t_cmd	*parseredirs(t_cmd *cmd, char **ps, char *es)
  *
  * @param ps Pointer to the current position in the command string
  * @param es Pointer to the end of the command string
- * @return t_cmd* Pointer to the parsed command structure, or NULL if parsing fails
+ * @return t_cmd* Pointer to the parsed
+ * command structure, or NULL if parsing fails
  *
  * This function parses a pipe command from the input string and creates
  * appropriate command structures. It handles the parsing of commands
