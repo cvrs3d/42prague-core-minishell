@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:23:36 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 12:40:58 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:19:39 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,35 @@ static int	check_executable(char *path, t_execcmd *ecmd)
 	return (-1);
 }
 
+/*
+	TODO:
+	Change strtok to ft_split
+*/
 int	ft_try_find_cmd(t_execcmd *ecmd, t_shell *shell)
 {
 	char	*path_env;
-	char	*path;
+	char	**path_args;
+	int		i;
 
 	if (access(ecmd->argv[0], X_OK) == 0)
 		return (0);
 	path_env = ft_getenv("PATH", shell);
 	if (path_env == NULL)
 		return (-1);
-	path = strtok(path_env, ":");
-	while (path != NULL)
+	path_args = ft_split(path_env, ':');
+	i = 0;
+	while (path_args && path_args[i])
 	{
-		if (check_executable(path, ecmd) == 0)
+		if (check_executable(path_args[i], ecmd) == 0)
 		{
 			free(path_env);
+			ft_free_split(path_args);
 			return (0);
 		}
-		path = strtok(NULL, ":");
+		i++;
 	}
+	if (path_args)
+		ft_free_split(path_args);
 	free(path_env);
 	return (-1);
 }

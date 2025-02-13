@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:10:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 12:31:14 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:12:35 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,28 @@
  *         Typically, 0 indicates success, while a non-zero value indicates
  *         an error.
  */
-static int	handle_cd_command(char *buffer, t_shell *shell)
+int	handle_cd_command(char **argv, t_shell *shell)
 {
-	char	**args;
 	char	*home;
 	int		ret;
 
-	args = ft_split(buffer, ' ');
-	if (!args)
-		return (1);
-	if (!args[1])
+	if (!argv)
+		return (-1);
+	if (!argv[1])
 	{
 		home = ft_getenv("HOME", shell);
 		if (!home)
 		{
 			printf("cd: HOME not set\n");
-			ft_free_split(args);
-			return (1);
+			return (-1);
 		}
 		ret = chdir(home);
 		free(home);
 	}
 	else
-		ret = chdir(args[1]);
+		ret = chdir(argv[1]);
 	if (ret == -1)
-		printf("cannot cd into: %s\n", buffer);
-	ft_free_split(args);
+		return (printf("cannot cd into: %s\n", argv[1]), ret);
 	return (1);
 }
 
@@ -64,7 +60,7 @@ static int	handle_cd_command(char *buffer, t_shell *shell)
  * @return An integer
  * representing the success or failure of the command execution.
  */
-static int	handle_env_command(t_shell *shell)
+int	handle_env_command(t_shell *shell)
 {
 	t_env	*curr;
 
@@ -89,21 +85,18 @@ static int	handle_env_command(t_shell *shell)
  * @return An integer status code
  * indicating the success or failure of the operation.
  */
-static int	handle_unset_command(char *buffer, t_shell *shell)
+int	handle_unset_command(char **argv, t_shell *shell)
 {
-	char	**args;
 	int		i;
 
-	args = ft_split(buffer, ' ');
-	if (!args)
+	if (!argv)
 		return (1);
 	i = 1;
-	while (args[i])
+	while (argv[i])
 	{
-		unset_var(shell, args[i]);
+		unset_var(shell, argv[i]);
 		i++;
 	}
-	ft_free_split(args);
 	return (1);
 }
 
@@ -121,19 +114,17 @@ static int	handle_unset_command(char *buffer, t_shell *shell)
  * @return An integer status code
  * indicating the success or failure of the command.
  */
-static int	handle_export_command(char *buffer, t_shell *shell)
+int	handle_export_command(char **argv, t_shell *shell)
 {
-	char	**args;
 	char	**key_value;
 	int		i;
 
-	args = ft_split(buffer, ' ');
-	if (!args)
+	if (!argv)
 		return (1);
 	i = 1;
-	while (args[i])
+	while (argv[i])
 	{
-		key_value = ft_split(args[i], '=');
+		key_value = ft_split(argv[i], '=');
 		if (key_value && key_value[0] && key_value[1])
 		{
 			export_var(shell, key_value[0], key_value[1]);
@@ -143,7 +134,6 @@ static int	handle_export_command(char *buffer, t_shell *shell)
 			ft_free_split(key_value);
 		i++;
 	}
-	ft_free_split(args);
 	return (1);
 }
 
@@ -157,21 +147,21 @@ static int	handle_export_command(char *buffer, t_shell *shell)
  *         a built-in and 1 means it is a built-in.
  * ON SUCCESS ALL HANDLERS RETURN 1 EXEPT EXIT
  */
-int	check_builtins(char *buffer, t_shell *shell)
+int	check_builtins(char **argv, t_shell *shell)
 {
-	if (strncmp(buffer, "cd", 2) == 0)
-		return (handle_cd_command(buffer, shell));
-	else if (strncmp(buffer, "env", 3) == 0)
+	if (strncmp(argv[0], "cd", 2) == 0)
+		return (handle_cd_command(argv, shell));
+	else if (strncmp(argv[0], "env", 3) == 0)
 		return (handle_env_command(shell));
-	else if (strncmp(buffer, "unset", 5) == 0)
-		return (handle_unset_command(buffer, shell));
-	else if (strncmp(buffer, "export", 6) == 0)
-		return (handle_export_command(buffer, shell));
-	else if (strncmp(buffer, "pwd", 3) == 0)
-		return (handle_pwd_command(buffer, shell));
-	else if (strncmp(buffer, "echo", 4) == 0)
-		return (handle_echo_command(buffer, shell));
-	else if (strncmp(buffer, "exit", 4) == 0)
-		return (handle_exit_command(buffer, shell));
-	return (137);
+	else if (strncmp(argv[0], "unset", 5) == 0)
+		return (handle_unset_command(argv, shell));
+	else if (strncmp(argv[0], "export", 6) == 0)
+		return (handle_export_command(argv, shell));
+	else if (strncmp(argv[0], "pwd", 3) == 0)
+		return (handle_pwd_command(shell));
+	else if (strncmp(argv[0], "echo", 4) == 0)
+		return (handle_echo_command(argv, shell));
+	else if (strncmp(argv[0], "exit", 4) == 0)
+		return (handle_exit_command(argv, shell));
+	return (NO_BUILTIN_FOUND);
 }

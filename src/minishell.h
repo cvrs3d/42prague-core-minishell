@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 14:52:51 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:07:43 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define HEREDOC 103
 # define HEREDOC_PATH "/tmp/hrdc_tpm"
 # define EXIT_CMD_NOT_FOUND 2
+# define NO_BUILTIN_FOUND 404
 
 typedef struct s_env
 {
@@ -123,7 +124,7 @@ int		peek(char **ps, char *es, char *toks);
 t_cmd	*nulterminate(t_cmd *cmd);
 t_env	*create_env_node(char *key, char *value);
 char	*ft_getenv(const char *key, t_shell *shell);
-int		check_builtins(char *buffer, t_shell *shell);
+int		check_builtins(char **argv, t_shell *shell);
 char	**convert_env_to_array(t_shell *shell);
 int		evaluate_input(char *buffer, t_shell *shell);
 char	*expand_variable(char *str, int *i, t_shell *shell);
@@ -142,9 +143,14 @@ void	handle_list_null(t_listcmd	*lcmd);
 void	handle_back_null(t_backcmd	*bcmd);
 void	handle_heredoc_cmd(char *limiter);
 int		ft_try_find_cmd(t_execcmd *ecmd, t_shell *shell);
-int		handle_pwd_command(char *buffer, t_shell *shell);
-int		handle_exit_command(char *buffer, t_shell *shell);
-int		handle_echo_command(char *buffer, t_shell *shell);
+int		handle_pwd_command(t_shell *shell);
+int		handle_exit_command(char **argv, t_shell *shell);
+int		handle_echo_command(char **argv, t_shell *shell);
+int		handle_env_command(t_shell *shell);
+int		handle_cd_command(char **argv, t_shell *shell);
+int		handle_export_command(char **argv, t_shell *shell);
+int		handle_unset_command(char **argv, t_shell *shell);
+int		check_builtins_non_fork(char *buffer, t_shell *shell);
 void	unset_var(t_shell *shell, char *key);
 void	export_var(t_shell *shell, char *key, char *value);
 void	init_env(t_shell *shell, char **envp);
@@ -181,5 +187,6 @@ int		getcmd(char *buf, int nbuf);
 void	print_tree(t_cmd *cmd, int depth);
 void	ft_free_split(char **split);
 void	cleanup_env(t_shell *shell);
+int		split_free_wrapper(char **split, int i);
 
 #endif

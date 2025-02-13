@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:04:33 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:22:01 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 static void	handle_exec_cmd(t_execcmd *ecmd, t_shell *sh)
 {
+	int	builtin;
+
 	if (ecmd->argv[0] == 0)
 		exit(0);
+	builtin = check_builtins(ecmd->argv, sh);
+	if (builtin != NO_BUILTIN_FOUND)
+	{
+		sh->e_code = builtin;
+		return ;
+	}
 	if (ft_try_find_cmd(ecmd, sh) == -1)
 	{
 		fprintf(stderr, "command %s not found\n", ecmd->argv[0]);
 		return ;
 	}
 	execve(ecmd->argv[0], ecmd->argv, sh->envp);
-	fprintf(stderr, "exec %s failed\n", ecmd->argv[0]);
 }
 
 static void	handle_redir_cmd(t_redircmd *rcmd, t_shell *sh)

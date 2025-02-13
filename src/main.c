@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:05:52 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:11:50 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (evaluate_input(buffer, &shell) == -1)
 			break ;
-		ret = check_builtins(buffer, &shell);
+		ret = check_builtins_non_fork(buffer, &shell);
 		if (ret == 1)
 			continue ;
-		if (ret == -1)
+		if (ret == 127)
 			break ;
 		execute_command(buffer, &shell);
 	}
 	cleanup_env(&shell);
-	clear_history();
+	rl_clear_history();
 	exit(0);
 }

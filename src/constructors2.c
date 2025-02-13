@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:40:04 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 12:40:06 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:35:38 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	set_redir_mode(t_redircmd *cmd, int mode)
 {
 	if (mode == STDIN)
 	{
-		cmd->mode = O_WRONLY;
+		cmd->mode = O_RDONLY;
 		cmd->fd = 0;
 	}
 	else if (mode == HEREDOC)
