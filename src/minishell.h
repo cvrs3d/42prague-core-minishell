@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/13 18:07:43 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:55:59 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@
 # define APPEND 102
 # define HEREDOC 103
 # define HEREDOC_PATH "/tmp/hrdc_tpm"
-# define EXIT_CMD_NOT_FOUND 2
+# define EXIT_CMD_NOT_FOUND 127
 # define NO_BUILTIN_FOUND 404
+# define EXIT_MINISHEL_ERR 2
 
 typedef struct s_env
 {
@@ -182,11 +183,11 @@ void	*ft_memset(void *s, int c, size_t n);
 	***************************
 */
 int		fork1(void);
-void	panic(char *s);
+void	panic(char *s, int exit_code);
 int		getcmd(char *buf, int nbuf);
 void	print_tree(t_cmd *cmd, int depth);
 void	ft_free_split(char **split);
 void	cleanup_env(t_shell *shell);
-int		split_free_wrapper(char **split, int i);
+int		split_free_wrapper(char **split, int i, t_shell *shell);
 
 #endif

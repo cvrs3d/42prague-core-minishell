@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/13 16:22:01 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:44:13 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,11 @@ static void	handle_exec_cmd(t_execcmd *ecmd, t_shell *sh)
 		exit(0);
 	builtin = check_builtins(ecmd->argv, sh);
 	if (builtin != NO_BUILTIN_FOUND)
-	{
-		sh->e_code = builtin;
-		return ;
-	}
+		exit(builtin);
 	if (ft_try_find_cmd(ecmd, sh) == -1)
-	{
-		fprintf(stderr, "command %s not found\n", ecmd->argv[0]);
-		return ;
-	}
+		panic("command not found", EXIT_FAILURE);
 	execve(ecmd->argv[0], ecmd->argv, sh->envp);
+	exit(EXIT_FAILURE);
 }
 
 static void	handle_redir_cmd(t_redircmd *rcmd, t_shell *sh)
@@ -57,7 +52,7 @@ static void	handle_pipe_cmd(t_pipecmd *pcmd, t_shell *sh)
 	int	p[2];
 
 	if (pipe(p) < 0)
-		panic("pipe");
+		panic("pipe", EXIT_MINISHEL_ERR);
 	if (fork1() == 0)
 	{
 		close(1);
@@ -106,7 +101,7 @@ void	runcmd(t_cmd *cmd, t_shell *sh)
 			runcmd(((t_backcmd *)cmd)->cmd, sh);
 	}
 	else
-		panic("runcmd");
+		panic("runcmd", EXIT_MINISHEL_ERR);
 	exit(0);
 }
 // void runcmd(t_cmd *cmd)

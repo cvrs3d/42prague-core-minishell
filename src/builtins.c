@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:10:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/13 18:12:35 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:47:10 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ int	handle_cd_command(char **argv, t_shell *shell)
 	char	*home;
 	int		ret;
 
-	if (!argv)
-		return (-1);
+	if (!argv || !shell)
+		return (1);
 	if (!argv[1])
 	{
 		home = ft_getenv("HOME", shell);
 		if (!home)
 		{
+			shell->e_code = -1;
 			printf("cd: HOME not set\n");
-			return (-1);
+			return (1);
 		}
 		ret = chdir(home);
 		free(home);
@@ -44,8 +45,8 @@ int	handle_cd_command(char **argv, t_shell *shell)
 	else
 		ret = chdir(argv[1]);
 	if (ret == -1)
-		return (printf("cannot cd into: %s\n", argv[1]), ret);
-	return (1);
+		return (printf("cannot cd into: %s\n", argv[1]), 1);
+	return (0);
 }
 
 /**
@@ -70,7 +71,7 @@ int	handle_env_command(t_shell *shell)
 		printf("%s=%s\n", curr->key, curr->value);
 		curr = curr->next;
 	}
-	return (1);
+	return (0);
 }
 
 /**
@@ -97,7 +98,7 @@ int	handle_unset_command(char **argv, t_shell *shell)
 		unset_var(shell, argv[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 /**
@@ -134,7 +135,7 @@ int	handle_export_command(char **argv, t_shell *shell)
 			ft_free_split(key_value);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:23:36 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/13 16:19:39 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:44:36 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*create_full_path(char *path, char *cmd)
 	len = strlen(path) + strlen(cmd) + 2;
 	full_path = malloc(len);
 	if (full_path == NULL)
-		panic("malloc");
+		panic("malloc", EXIT_MINISHEL_ERR);
 	snprintf(full_path, len, "%s/%s", path, cmd);
 	return (full_path);
 }

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:54:25 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:42:48 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	process_token(t_execcmd *cmd, int *argc, char *q, char *eq)
 	cmd->eargv[*argc] = eq;
 	(*argc)++;
 	if (*argc > MAXARGS)
-		panic("too many args");
+		panic("too many args", EXIT_MINISHEL_ERR);
 }
 
 /**
@@ -49,7 +49,7 @@ static t_cmd	*parse_arguments(t_cmd *ret, char **ps, char *es)
 		if (tok == 0)
 			break ;
 		if (tok != 'a')
-			panic("syntax");
+			panic("syntax", EXIT_MINISHEL_ERR);
 		process_token(cmd, &argc, q, eq);
 		ret = parseredirs(ret, ps, es);
 	}
@@ -93,7 +93,7 @@ t_cmd	*parsecmd(char *s)
 	if (s != es)
 	{
 		fprintf(stderr, "leftovers: %s\n", s);
-		panic("syntax");
+		panic("syntax", EXIT_MINISHEL_ERR);
 	}
 	nulterminate(cmd);
 	return (cmd);

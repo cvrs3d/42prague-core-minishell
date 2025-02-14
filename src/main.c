@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/13 18:11:50 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:53:35 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,17 @@ static void	setup_signals(void)
 
 static void	execute_command(char *buffer, t_shell *sh)
 {
-	if (fork1() == 0)
+	pid_t	pid;
+	int		status;
+
+	pid = fork1();
+	if (pid == 0)
 		runcmd(parsecmd(buffer), sh);
-	wait(0);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		sh->e_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		sh->e_code = 128 + WTERMSIG(status);
 }
 
 /**
@@ -69,11 +77,10 @@ int	main(int argc, char **argv, char **envp)
 		if (evaluate_input(buffer, &shell) == -1)
 			break ;
 		ret = check_builtins_non_fork(buffer, &shell);
-		if (ret == 1)
-			continue ;
 		if (ret == 127)
 			break ;
-		execute_command(buffer, &shell);
+		if (ret == NO_BUILTIN_FOUND)
+			execute_command(buffer, &shell);
 	}
 	cleanup_env(&shell);
 	rl_clear_history();

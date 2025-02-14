@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 13:39:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/09 13:58:42 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:43:54 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	handle_heredoc_cmd(char *limiter)
 
 	fd = open(HEREDOC_PATH, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		panic("open");
+		panic("open", EXIT_MINISHEL_ERR);
 	if (!write_to_heredoc(fd, limiter))
 	{
 		cleanup_heredoc(fd);
@@ -59,6 +59,6 @@ void	handle_heredoc_cmd(char *limiter)
 	if (fd < 0)
 	{
 		cleanup_heredoc(fd);
-		panic("open");
+		panic("open", EXIT_MINISHEL_ERR);
 	}
 }
