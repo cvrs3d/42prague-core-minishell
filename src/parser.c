@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:42:48 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:31:30 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_cmd	*parsecmd(char *s)
 	char	*es;
 	t_cmd	*cmd;
 
-	es = s + strlen(s);
+	es = s + ft_strlen(s);
 	cmd = parseline(&s, es);
 	peek(&s, es, "");
 	if (s != es)

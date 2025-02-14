@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:32:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 17:56:08 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:38:07 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	handle_exit_command(char **argv, t_shell *shell)
 	}
 	if (argv[1])
 	{
-		e_code = atoi(argv[1]);
+		e_code = ft_atoi(argv[1]);
 		if (e_code == 0)
 		{
 			printf("integer required %s\n", argv[1]);
@@ -65,7 +65,7 @@ int	handle_echo_command(char **argv, t_shell *shell)
 	if (NULL == argv)
 		return (1);
 	if (argv[1])
-		new_line_flag = strcmp(argv[1], "-n");
+		new_line_flag = ft_strcmp(argv[1], "-n");
 	i = 1;
 	if (new_line_flag == 0)
 		i = 2;
@@ -90,16 +90,16 @@ int	check_builtins_non_fork(char *buffer, t_shell *shell)
 		return (-1);
 	if (!argv[0])
 		return (ft_free_split(argv), -1);
-	if (strncmp(argv[0], "cd", 2) == 0)
+	if (ft_strncmp(argv[0], "cd", 2) == 0)
 		return (split_free_wrapper(argv,
 				handle_cd_command(argv, shell), shell));
-	else if (strncmp(argv[0], "unset", 5) == 0)
+	else if (ft_strncmp(argv[0], "unset", 5) == 0)
 		return (split_free_wrapper(argv,
 				handle_unset_command(argv, shell), shell));
-	else if (strncmp(argv[0], "export", 6) == 0)
+	else if (ft_strncmp(argv[0], "export", 6) == 0)
 		return (split_free_wrapper(argv,
 				handle_export_command(argv, shell), shell));
-	else if (strncmp(argv[0], "exit", 4) == 0)
+	else if (ft_strncmp(argv[0], "exit", 4) == 0)
 		return (split_free_wrapper(argv,
 				handle_exit_command(argv, shell), NULL));
 	return (ft_free_split(argv), NO_BUILTIN_FOUND);

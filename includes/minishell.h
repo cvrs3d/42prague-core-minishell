@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 17:53:07 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:37:24 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-# include <string.h>
 # include <stddef.h>
 # include <signal.h>
 # include <readline/readline.h>
@@ -175,6 +174,10 @@ void	ft_putendl_fd(const char *s, int fd);
 char	*ft_strdup(const char *s);
 char	**ft_split(char const *s, char c);
 void	*ft_memset(void *s, int c, size_t n);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_atoi(const char *s);
 /*
 	***************************
 */

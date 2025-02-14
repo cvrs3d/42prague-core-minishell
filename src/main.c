@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 17:54:18 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:38:29 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	while (getcmd(buffer, sizeof(buffer)) >= 0)
 	{
 		if (evaluate_input(buffer, &shell) == -1)
-			break ;
+			continue ;
 		ret = check_builtins_non_fork(buffer, &shell);
 		if (ret == 127)
 			exit_shell(&shell, shell.e_code);

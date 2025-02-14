@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:28:11 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 12:50:19 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:36:26 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_getenv(const char *key, t_shell *shell)
 	current = shell->env_list;
 	while (current)
 	{
-		if (strcmp(key, current->key) == 0)
+		if (ft_strcmp(key, current->key) == 0)
 			return (ft_strdup(current->value));
 		current = current->next;
 	}

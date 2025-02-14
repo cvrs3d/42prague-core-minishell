@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 13:39:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:43:54 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:36:31 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	write_to_heredoc(int fd, char *limiter)
 			ft_putendl_fd("warning: here-document delimited by end-of-file", 2);
 			return (0);
 		}
-		if (strcmp(line, limiter) == 0)
+		if (ft_strcmp(line, limiter) == 0)
 		{
 			free(line);
 			break ;

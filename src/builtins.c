@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:10:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:47:10 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:37:58 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,19 +150,19 @@ int	handle_export_command(char **argv, t_shell *shell)
  */
 int	check_builtins(char **argv, t_shell *shell)
 {
-	if (strncmp(argv[0], "cd", 2) == 0)
+	if (ft_strncmp(argv[0], "cd", 2) == 0)
 		return (handle_cd_command(argv, shell));
-	else if (strncmp(argv[0], "env", 3) == 0)
+	else if (ft_strncmp(argv[0], "env", 3) == 0)
 		return (handle_env_command(shell));
-	else if (strncmp(argv[0], "unset", 5) == 0)
+	else if (ft_strncmp(argv[0], "unset", 5) == 0)
 		return (handle_unset_command(argv, shell));
-	else if (strncmp(argv[0], "export", 6) == 0)
+	else if (ft_strncmp(argv[0], "export", 6) == 0)
 		return (handle_export_command(argv, shell));
-	else if (strncmp(argv[0], "pwd", 3) == 0)
+	else if (ft_strncmp(argv[0], "pwd", 3) == 0)
 		return (handle_pwd_command(shell));
-	else if (strncmp(argv[0], "echo", 4) == 0)
+	else if (ft_strncmp(argv[0], "echo", 4) == 0)
 		return (handle_echo_command(argv, shell));
-	else if (strncmp(argv[0], "exit", 4) == 0)
+	else if (ft_strncmp(argv[0], "exit", 4) == 0)
 		return (handle_exit_command(argv, shell));
 	return (NO_BUILTIN_FOUND);
 }

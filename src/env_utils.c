@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:41:45 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/11 17:59:16 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:36:20 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	export_var(t_shell *shell, char *key, char *value)
 	env = shell->env_list;
 	while (env)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(value);
@@ -81,7 +81,7 @@ void	unset_var(t_shell *shell, char *key)
 	prev = NULL;
 	while (env)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 		{
 			if (prev)
 				prev->next = env->next;
