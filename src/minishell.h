@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:55:59 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:53:07 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,6 @@ void	print_tree(t_cmd *cmd, int depth);
 void	ft_free_split(char **split);
 void	cleanup_env(t_shell *shell);
 int		split_free_wrapper(char **split, int i, t_shell *shell);
+void	exit_shell(t_shell *shell, int exit_code);
 
 #endif

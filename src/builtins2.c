@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:32:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:55:36 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:56:08 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ int	check_builtins_non_fork(char *buffer, t_shell *shell)
 				handle_export_command(argv, shell), shell));
 	else if (strncmp(argv[0], "exit", 4) == 0)
 		return (split_free_wrapper(argv,
-				handle_exit_command(argv, shell), shell));
+				handle_exit_command(argv, shell), NULL));
 	return (ft_free_split(argv), NO_BUILTIN_FOUND);
 }

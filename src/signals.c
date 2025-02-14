@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:07:56 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:56:44 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:56:38 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ void	ft_sigquit_handler(int sig)
 int	split_free_wrapper(char **split, int i, t_shell *shell)
 {
 	ft_free_split(split);
-	shell->e_code = i;
+	if (shell != NULL)
+		shell->e_code = i;
 	return (i);
+}
+
+void	exit_shell(t_shell *shell, int exit_code)
+{
+	cleanup_env(shell);
+	rl_clear_history();
+	exit(exit_code);
 }
