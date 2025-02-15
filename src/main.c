@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 18:38:29 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:19:47 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	execute_command(char *buffer, t_shell *sh)
  */
 int	main(int argc, char **argv, char **envp)
 {
-	static char	buffer[100];
+	static char	buffer[4096];
 	t_shell		shell;
 	int			ret;
 

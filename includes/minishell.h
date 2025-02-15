@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 14:16:35 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:09:00 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define EXIT_CMD_NOT_FOUND 127
 # define NO_BUILTIN_FOUND 404
 # define EXIT_MINISHEL_ERR 2
+# define TTY "/dev/minitty"
 
 typedef struct s_env
 {
@@ -204,6 +205,7 @@ char	*ft_strncpy(char *dest, const char *src, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *s);
+char	*ft_strchr(const char *s, int c);
 /*
 	***************************
 */

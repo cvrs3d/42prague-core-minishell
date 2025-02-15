@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 14:55:40 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:09:15 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	get_token_append(char **ps, char *s)
 
 int	get_token_word(char **ps, char *es, char *s)
 {
-	while (s < es && !strchr(WHITESPACE, *s) && !strchr(SYMBOLS, *s))
+	while (s < es && !ft_strchr(WHITESPACE, *s) && !ft_strchr(SYMBOLS, *s))
 		s++;
 	*ps = s;
 	return ('a');
@@ -88,18 +88,18 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 	int		ret;
 
 	s = *ps;
-	while (s < es && strchr(WHITESPACE, *s))
+	while (s < es && ft_strchr(WHITESPACE, *s))
 		s++;
 	if (q)
 		*q = s;
 	ret = *s;
 	if (*s == 0)
 		return (0);
-	else if (strchr("\"\'", *s))
+	else if (ft_strchr("\"\'", *s))
 		return (get_token_quoted(ps, s, q, eq));
-	else if (strchr("();", *s))
+	else if (ft_strchr("();", *s))
 		*ps = s + 1;
-	else if (strchr("&|", *s))
+	else if (ft_strchr("&|", *s))
 		ret = get_token_bonus(ps, s);
 	else if (*s == '>' || *s == '<')
 		ret = get_token_append(ps, s);
@@ -115,8 +115,8 @@ int	peek(char **ps, char *es, char *toks)
 	char	*s;
 
 	s = *ps;
-	while (s < es && strchr(WHITESPACE, *s))
+	while (s < es && ft_strchr(WHITESPACE, *s))
 		s++;
 	*ps = s;
-	return (*s && strchr(toks, *s));
+	return (*s && ft_strchr(toks, *s));
 }

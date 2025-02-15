@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 13:39:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 18:36:31 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:02:52 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	write_to_heredoc(int fd, char *limiter)
 {
 	char	*line;
 
+	rl_outstream = stderr;
 	while (1)
 	{
 		line = readline("heredocument> ");

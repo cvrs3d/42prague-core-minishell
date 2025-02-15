@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:13:07 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:40:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:46:48 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*ft_memset(void *s, int c, size_t n)
 
 void	panic(char *s, int exit_code)
 {
-	printf("%s\n", s);
+	ft_putendl_fd(s, 2);
 	exit(exit_code);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:24:16 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 18:37:14 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:08:46 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,21 @@ int	ft_atoi(const char *s)
 		i++;
 	}
 	return (result * sign);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != '\0')
+	{
+		if (*s == (char) c)
+		{
+			return ((char *) s);
+		}
+		s++;
+	}
+	if (*s == (char) c)
+	{
+		return ((char *) s);
+	}
+	return (NULL);
 }

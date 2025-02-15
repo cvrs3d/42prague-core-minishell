@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 14:45:08 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:22:04 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,29 +82,6 @@ static void	handle_list_cmd(t_listcmd *lcmd, t_shell *sh)
 	wait(0);
 	runcmd(lcmd->right, sh);
 }
-/*
-For && and || do the same BUT
-
-static void	handle_&&_cmd(t_listcmd *lcmd, t_shell *sh)
-{
-	pidt_t	pid;
-	int		exit;
-	int		run_next;
-
-	pid = fork1();
-	if (pid == 0)
-		runcmd(lcmd->left, sh);
-	waitpid(pid, &exit, 0);
-	if (WIFEXITED(exit))
-		run_next = WEXITSTATUS(exit);
-	else if (WIFSIGNALED(status))
-		run_next = 128 + WTERMSIG(exit);
-	if (exit == 0)
-		runcmd(lcmd->right, sh);
-	else
-		exit(run_next);
-}
-*/
 
 void	runcmd(t_cmd *cmd, t_shell *sh)
 {
@@ -131,41 +108,3 @@ void	runcmd(t_cmd *cmd, t_shell *sh)
 		panic("runcmd", EXIT_MINISHEL_ERR);
 	exit(0);
 }
-// void runcmd(t_cmd *cmd)
-// {
-// 	t_backcmd *bcmd;
-// 	t_execcmd *ecmd;
-// 	t_listcmd *lcmd;
-// 	t_pipecmd *pcmd;
-// 	t_redircmd *rcmd;
-
-// 	if (cmd == 0)
-// 		exit(0);
-// 	switch (cmd->type)
-// 	{
-// 	case EXEC:
-// 		ecmd = (t_execcmd *)cmd;
-// 		handle_exec_cmd(ecmd);
-// 		break;
-// 	case REDIR:
-// 		rcmd = (t_redircmd *)cmd;
-// 		handle_redir_cmd(rcmd);
-// 		break;
-// 	case LIST:
-// 		lcmd = (t_listcmd *)cmd;
-// 		handle_list_cmd(lcmd);
-// 		break;
-// 	case PIPE:
-// 		pcmd = (t_pipecmd *)cmd;
-// 		handle_pipe_cmd(pcmd);
-// 		break;
-// 	case BACK:
-// 		bcmd = (t_backcmd *)cmd;
-// 		if (fork1() == 0)
-// 			runcmd(bcmd->cmd);
-// 		break;
-// 	default:
-// 		panic("runcmd");
-// 	}
-// 	exit(0);
-// }
