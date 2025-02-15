@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 13:39:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 17:02:52 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:30:50 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	write_to_heredoc(int fd, char *limiter)
 		line = readline("heredocument> ");
 		if (!line)
 		{
+			rl_outstream = stdout;
 			ft_putendl_fd("warning: here-document delimited by end-of-file", 2);
 			return (0);
 		}
@@ -39,6 +40,7 @@ static int	write_to_heredoc(int fd, char *limiter)
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
+	rl_outstream = stdout;
 	return (1);
 }
 
@@ -55,7 +57,7 @@ void	handle_heredoc_cmd(char *limiter)
 		return ;
 	}
 	close(fd);
-	close(0);
+
 	fd = open(HEREDOC_PATH, O_RDONLY);
 	if (fd < 0)
 	{

@@ -6,11 +6,29 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:10:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 18:37:58 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:00:58 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*expand_tilde(char *path, t_shell *shell)
+{
+    char	*home;
+    char	*result;
+
+    if (!path || path[0] != '~')
+        return (ft_strdup(path));
+    home = ft_getenv("HOME", shell);
+    if (!home)
+        return (ft_strdup(path));
+    if (path[1] == '\0')
+        result = ft_strdup(home);
+    else
+        result = ft_strjoin(home, path + 1);
+    free(home);
+    return (result);
+}
 
 /**
  * @brief Handles the 'cd' command in the minishell.
@@ -27,6 +45,7 @@ int	handle_cd_command(char **argv, t_shell *shell)
 {
 	char	*home;
 	int		ret;
+	char	*path;
 
 	if (!argv || !shell)
 		return (1);
@@ -43,10 +62,14 @@ int	handle_cd_command(char **argv, t_shell *shell)
 		free(home);
 	}
 	else
-		ret = chdir(argv[1]);
-	if (ret == -1)
-		return (printf("cannot cd into: %s\n", argv[1]), 1);
-	return (0);
+	{
+		path = expand_tilde(argv[1], shell);
+		ret = chdir(path);
+		if (ret == -1)
+			return (printf("cannot cd into: %s\n", path));
+		free(path);
+	}
+	return (ret == -1);
 }
 
 /**
