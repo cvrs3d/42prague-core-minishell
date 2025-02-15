@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:01:03 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:43:21 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:56:21 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,21 @@ t_cmd	*parseredirs(t_cmd *cmd, char **ps, char *es)
 t_cmd	*parsepipe(char **ps, char *es)
 {
 	t_cmd	*cmd;
+	int		tok;
 
 	cmd = parseexec(ps, es);
-	if (peek(ps, es, "|"))
+	if (peek(ps, es, "|&"))
 	{
-		gettoken(ps, es, 0, 0);
-		cmd = pipecmd(cmd, parsepipe(ps, es));
+		tok = gettoken(ps, es, 0, 0);
+		if (tok == '!' || tok == '?')
+		{
+			if (tok == '!')
+				cmd = orcmd(cmd, parsepipe(ps, es));
+			else
+				cmd = andcmd(cmd, parsepipe(ps, es));
+		}
+		else
+			cmd = pipecmd(cmd, parsepipe(ps, es));
 	}
 	return (cmd);
 }

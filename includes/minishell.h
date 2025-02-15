@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 13:00:30 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:16:35 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define PIPE 3
 # define LIST 4
 # define BACK 5
+# define OR 6
+# define AND 7
 # define MAXARGS 10
 # define WHITESPACE " \t\r\n\v"
 # define SYMBOLS "<|>&;()\"'"
@@ -85,6 +87,22 @@ typedef struct s_listcmd
 	t_cmd	*right;
 }	t_listcmd;
 
+//	&&
+typedef struct s_andcmd
+{
+	int		type;
+	t_cmd	*left;
+	t_cmd	*right;
+}	t_andcmd;
+
+//	||
+typedef struct s_orcmd
+{
+	int		type;
+	t_cmd	*left;
+	t_cmd	*right;
+}	t_orcmd;
+
 typedef struct s_backcmd
 {
 	int		type;
@@ -106,6 +124,8 @@ t_cmd	*execcmd(void);
 t_cmd	*redircmd(t_cmd *subcmd, char *file, char *efile, int mode);
 t_cmd	*pipecmd(t_cmd *left, t_cmd *right);
 t_cmd	*listcmd(t_cmd *left, t_cmd *right);
+t_cmd	*andcmd(t_cmd *left, t_cmd *right);
+t_cmd	*orcmd(t_cmd *left, t_cmd *right);
 t_cmd	*backcmd(t_cmd *subcmd);
 /*
 	***************************
@@ -129,6 +149,7 @@ int		check_builtins(char **argv, t_shell *shell);
 char	**convert_env_to_array(t_shell *shell);
 int		evaluate_input(char *buffer, t_shell *shell);
 char	*expand_variable(char *str, int *i, t_shell *shell);
+int		get_token_bonus(char **ps, char *s);
 /*
 	***************************
 */
@@ -142,6 +163,10 @@ void	handle_redir_null(t_redircmd *rcmd);
 void	handle_pipe_null(t_pipecmd	*pcmd);
 void	handle_list_null(t_listcmd	*lcmd);
 void	handle_back_null(t_backcmd	*bcmd);
+void	handle_and_null(t_andcmd *lcmd);
+void	handle_or_null(t_orcmd *lcmd);
+void	handle_or_cmd(t_orcmd *lcmd, t_shell *sh);
+void	handle_and_cmd(t_andcmd *lcmd, t_shell *sh);
 void	handle_heredoc_cmd(char *limiter);
 int		ft_try_find_cmd(t_execcmd *ecmd, t_shell *shell);
 int		handle_pwd_command(t_shell *shell);

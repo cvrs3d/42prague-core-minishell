@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 13:53:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:55:40 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,16 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 		return (0);
 	else if (strchr("\"\'", *s))
 		return (get_token_quoted(ps, s, q, eq));
-	else if (strchr("|();&", *s))
+	else if (strchr("();", *s))
 		*ps = s + 1;
+	else if (strchr("&|", *s))
+		ret = get_token_bonus(ps, s);
 	else if (*s == '>' || *s == '<')
 		ret = get_token_append(ps, s);
 	else
 		ret = get_token_word(ps, es, s);
 	if (eq)
 		*eq = *ps;
-	while (*ps < es && strchr(WHITESPACE, **ps))
-		(*ps)++;
 	return (ret);
 }
 

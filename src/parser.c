@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 18:31:30 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:52:28 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_cmd	*parsecmd(char *s)
 	if (s != es)
 	{
 		fprintf(stderr, "leftovers: %s\n", s);
-		panic("syntax", EXIT_MINISHEL_ERR);
+		panic("syntaxl", EXIT_MINISHEL_ERR);
 	}
 	nulterminate(cmd);
 	return (cmd);
@@ -123,5 +123,9 @@ t_cmd	*nulterminate(t_cmd *cmd)
 		handle_list_null((t_listcmd *)cmd);
 	else if (cmd->type == BACK)
 		handle_back_null((t_backcmd *)cmd);
+	else if (cmd->type == OR)
+		handle_or_null((t_orcmd *)cmd);
+	else if (cmd->type == AND)
+		handle_and_null((t_andcmd *)cmd);
 	return (cmd);
 }

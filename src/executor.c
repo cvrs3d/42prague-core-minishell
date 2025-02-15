@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 16:44:13 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:45:08 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static void	handle_pipe_cmd(t_pipecmd *pcmd, t_shell *sh)
 	}
 	close(p[0]);
 	close(p[1]);
-	waitpid(0, NULL, 0);
-	waitpid(0, NULL, 0);
+	waitpid(-1, NULL, 0);
+	waitpid(-1, NULL, 0);
 }
 
 static void	handle_list_cmd(t_listcmd *lcmd, t_shell *sh)
@@ -82,6 +82,29 @@ static void	handle_list_cmd(t_listcmd *lcmd, t_shell *sh)
 	wait(0);
 	runcmd(lcmd->right, sh);
 }
+/*
+For && and || do the same BUT
+
+static void	handle_&&_cmd(t_listcmd *lcmd, t_shell *sh)
+{
+	pidt_t	pid;
+	int		exit;
+	int		run_next;
+
+	pid = fork1();
+	if (pid == 0)
+		runcmd(lcmd->left, sh);
+	waitpid(pid, &exit, 0);
+	if (WIFEXITED(exit))
+		run_next = WEXITSTATUS(exit);
+	else if (WIFSIGNALED(status))
+		run_next = 128 + WTERMSIG(exit);
+	if (exit == 0)
+		runcmd(lcmd->right, sh);
+	else
+		exit(run_next);
+}
+*/
 
 void	runcmd(t_cmd *cmd, t_shell *sh)
 {
@@ -95,6 +118,10 @@ void	runcmd(t_cmd *cmd, t_shell *sh)
 		handle_list_cmd((t_listcmd *)cmd, sh);
 	else if (cmd->type == PIPE)
 		handle_pipe_cmd((t_pipecmd *)cmd, sh);
+	else if (cmd->type == AND)
+		handle_and_cmd((t_andcmd *)cmd, sh);
+	else if (cmd->type == OR)
+		handle_or_cmd((t_orcmd *)cmd, sh);
 	else if (cmd->type == BACK)
 	{
 		if (fork1() == 0)
