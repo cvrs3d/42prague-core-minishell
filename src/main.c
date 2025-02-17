@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 16:19:47 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:58:12 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ static void	execute_command(char *buffer, t_shell *sh)
 		sh->e_code = 128 + WTERMSIG(status);
 }
 
+void	reset_terminal_mode(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag |= (ECHO | ICANON | ISIG);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 /**
  * @brief Entry point of the minishell program.
  *
@@ -81,6 +90,7 @@ int	main(int argc, char **argv, char **envp)
 			exit_shell(&shell, shell.e_code);
 		if (ret == NO_BUILTIN_FOUND)
 			execute_command(buffer, &shell);
+		reset_terminal_mode();
 	}
 	exit_shell(&shell, EXIT_SUCCESS);
 }

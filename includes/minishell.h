@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 17:09:00 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:57:42 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <readline/history.h>
 # include <linux/limits.h>
 # include <stdbool.h>
+# include <termios.h>
+# include <term.h>
 
 # define EXEC 1
 # define REDIR 2
