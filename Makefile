@@ -6,7 +6,7 @@
 #    By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/28 16:40:04 by yustinov          #+#    #+#              #
-#    Updated: 2025/02/15 14:19:51 by yustinov         ###   ########.fr        #
+#    Updated: 2025/02/17 16:19:21 by yustinov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ SRCS		= src/main.c \
 			src/strings3.c \
 			src/utils.c \
 			src/bonus.c \
-			src/bonus2.c
+			src/bonus2.c \
+			src/builtins3.c
 
 OBJS		= $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIR)%.o)
 

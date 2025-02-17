@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:13:07 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 16:46:48 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:40:41 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ int	getcmd(char	*buf, int nbuf)
 		if (input)
 			free(input);
 		rl_clear_history();
-		fprintf(stderr, "exit\n");
+		ft_putendl_fd("exit", 2);
 		return (-1);
 	}
-	strncpy(buf, input, nbuf - 1);
+	ft_strncpy(buf, input, nbuf - 1);
 	buf[nbuf - 1] = '\0';
 	add_history(buf);
 	free(input);

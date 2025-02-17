@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 13:39:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 18:30:50 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:14:45 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	handle_heredoc_cmd(char *limiter)
 		return ;
 	}
 	close(fd);
-
 	fd = open(HEREDOC_PATH, O_RDONLY);
 	if (fd < 0)
 	{

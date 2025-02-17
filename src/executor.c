@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 16:22:04 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:41:55 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ static void	handle_redir_cmd(t_redircmd *rcmd, t_shell *sh)
 		close(rcmd->fd);
 		fd = open(rcmd->file, rcmd->mode, 0644);
 		if (fd < 0)
-		{
-			fprintf(stderr, "open %s failed\n", rcmd->file);
-			exit(1);
-		}
+			panic("open failed", EXIT_FAILURE);
 	}
 	runcmd(rcmd->cmd, sh);
 }
