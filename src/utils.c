@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:13:07 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 18:40:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:45:59 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ void	*ft_memset(void *s, int c, size_t n)
 	return (s);
 }
 
-void	panic(char *s, int exit_code)
+void	panic(char *s, int exit_code, t_shell *shell)
 {
+	if (shell)
+		cleanup_env(shell);
 	ft_putendl_fd(s, 2);
+	rl_clear_history();
 	exit(exit_code);
 }
 
@@ -34,7 +37,7 @@ int	fork1(void)
 
 	pid = fork();
 	if (pid == -1)
-		panic("fork", EXIT_FAILURE);
+		panic("fork", EXIT_FAILURE, NULL);
 	return (pid);
 }
 

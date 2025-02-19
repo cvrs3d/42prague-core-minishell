@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/17 17:58:12 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:50:41 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ static void	execute_command(char *buffer, t_shell *sh)
 		sh->e_code = 128 + WTERMSIG(status);
 }
 
+/**
+ * Resets the terminal mode to its original settings.
+ * This function restores the terminal to its default state,
+ * typically called when the program exits or needs to reset
+ * terminal configurations.
+ *
+ * @return void
+ */
 void	reset_terminal_mode(void)
 {
 	struct termios	term;

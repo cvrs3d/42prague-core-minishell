@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:01:03 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 14:56:21 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:45:47 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ t_cmd	*parseblock(char **ps, char *es)
 	t_cmd	*cmd;
 
 	if (!peek(ps, es, "("))
-		panic("parseblock", EXIT_MINISHEL_ERR);
+		panic("parseblock", EXIT_MINISHEL_ERR, NULL);
 	gettoken(ps, es, 0, 0);
 	cmd = parseline(ps, es);
 	if (!peek(ps, es, ")"))
-		panic("syntax - missing )", EXIT_MINISHEL_ERR);
+		panic("syntax - missing )", EXIT_MINISHEL_ERR, NULL);
 	gettoken(ps, es, 0, 0);
 	cmd = parseredirs(cmd, ps, es);
 	return (cmd);
@@ -59,7 +59,7 @@ t_cmd	*parseredirs(t_cmd *cmd, char **ps, char *es)
 	{
 		tok = gettoken(ps, es, 0, 0);
 		if (gettoken(ps, es, &q, &eq) != 'a')
-			panic("Missing file for redirection", EXIT_MINISHEL_ERR);
+			panic("Missing file for redirection", EXIT_MINISHEL_ERR, NULL);
 		if (tok == '<')
 			cmd = redircmd(cmd, q, eq, STDIN);
 		else if (tok == '>')

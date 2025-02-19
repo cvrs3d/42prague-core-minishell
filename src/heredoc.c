@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 13:39:29 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/17 17:45:02 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:44:56 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ static int	write_to_heredoc(int fd, char *limiter)
 		line = readline("heredocument> ");
 		if (!line)
 		{
-			rl_outstream = original_stream;
 			ft_putendl_fd("warning: here-document delimited by end-of-file", 2);
-			return (0);
+			break ;
 		}
 		if (ft_strcmp(line, limiter) == 0)
 		{
@@ -79,7 +78,7 @@ void	handle_heredoc_cmd(char *limiter)
 	original_stream = rl_outstream;
 	fd = open(HEREDOC_PATH, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		panic("open", EXIT_MINISHEL_ERR);
+		panic("open", EXIT_MINISHEL_ERR, NULL);
 	if (!write_to_heredoc(fd, limiter))
 	{
 		cleanup_heredoc(fd);
@@ -91,7 +90,7 @@ void	handle_heredoc_cmd(char *limiter)
 	if (fd < 0)
 	{
 		cleanup_heredoc(fd);
-		panic("open", EXIT_MINISHEL_ERR);
+		panic("open", EXIT_MINISHEL_ERR, NULL);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);

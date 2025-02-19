@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 18:41:55 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:10:20 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ static void	handle_exec_cmd(t_execcmd *ecmd, t_shell *sh)
 		exit(0);
 	builtin = check_builtins(ecmd->argv, sh);
 	if (builtin != NO_BUILTIN_FOUND)
-		exit(builtin);
+	{
+		free_tree((t_cmd *)ecmd);
+		exit_shell(sh, builtin);
+	}
 	if (ft_try_find_cmd(ecmd, sh) == -1)
-		panic("command not found", EXIT_FAILURE);
+		panic("command not found", EXIT_FAILURE, sh);
 	execve(ecmd->argv[0], ecmd->argv, sh->envp);
 	exit(EXIT_FAILURE);
 }
@@ -38,7 +41,7 @@ static void	handle_redir_cmd(t_redircmd *rcmd, t_shell *sh)
 		close(rcmd->fd);
 		fd = open(rcmd->file, rcmd->mode, 0644);
 		if (fd < 0)
-			panic("open failed", EXIT_FAILURE);
+			panic("open failed", EXIT_FAILURE, sh);
 	}
 	runcmd(rcmd->cmd, sh);
 }
@@ -49,7 +52,7 @@ static void	handle_pipe_cmd(t_pipecmd *pcmd, t_shell *sh)
 	int	p[2];
 
 	if (pipe(p) < 0)
-		panic("pipe", EXIT_MINISHEL_ERR);
+		panic("pipe", EXIT_MINISHEL_ERR, sh);
 	if (fork1() == 0)
 	{
 		close(1);
@@ -83,7 +86,7 @@ static void	handle_list_cmd(t_listcmd *lcmd, t_shell *sh)
 void	runcmd(t_cmd *cmd, t_shell *sh)
 {
 	if (cmd == 0)
-		exit(0);
+		exit_shell(sh, 0);
 	if (cmd->type == EXEC)
 		handle_exec_cmd((t_execcmd *)cmd, sh);
 	else if (cmd->type == REDIR)
@@ -102,6 +105,7 @@ void	runcmd(t_cmd *cmd, t_shell *sh)
 			runcmd(((t_backcmd *)cmd)->cmd, sh);
 	}
 	else
-		panic("runcmd", EXIT_MINISHEL_ERR);
-	exit(0);
+		panic("runcmd", EXIT_MINISHEL_ERR, sh);
+	free_tree(cmd);
+	exit_shell(sh, 0);
 }

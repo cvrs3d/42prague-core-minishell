@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/17 17:57:42 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:33:42 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 # define EXIT_CMD_NOT_FOUND 127
 # define NO_BUILTIN_FOUND 404
 # define EXIT_MINISHEL_ERR 2
-# define TTY "/dev/minitty"
 
 typedef struct s_env
 {
@@ -215,13 +214,20 @@ char	*ft_strchr(const char *s, int c);
 	UTILS
 	***************************
 */
+void	free_tree(t_cmd *cmd);
 int		fork1(void);
-void	panic(char *s, int exit_code);
+void	panic(char *s, int exit_code, t_shell *shell);
 int		getcmd(char *buf, int nbuf);
 void	print_tree(t_cmd *cmd, int depth);
 void	ft_free_split(char **split);
 void	cleanup_env(t_shell *shell);
 int		split_free_wrapper(char **split, int i, t_shell *shell);
 void	exit_shell(t_shell *shell, int exit_code);
+void	free_pipe(t_pipecmd *pcmd);
+void	free_list(t_listcmd *lcmd);
+void	free_and(t_andcmd *acmd);
+void	free_or(t_orcmd *acmd);
+void	free_back(t_backcmd *bcmd);
+bool	is_non_fork_cd(char **argv);
 
 #endif
