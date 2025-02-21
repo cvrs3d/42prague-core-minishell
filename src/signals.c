@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:07:56 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 17:56:38 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:28:35 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,15 @@ int	split_free_wrapper(char **split, int i, t_shell *shell)
 
 void	exit_shell(t_shell *shell, int exit_code)
 {
-	cleanup_env(shell);
+	if (shell)
+	{
+		if (shell->head) // Check if head exists
+		{
+			free_tree(shell->head); // Free the AST
+			shell->head = NULL;
+		}
+		cleanup_env(shell);
+	}
 	rl_clear_history();
 	exit(exit_code);
 }

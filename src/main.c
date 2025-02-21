@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/18 19:50:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:29:34 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,25 @@ static void	execute_command(char *buffer, t_shell *sh)
 {
 	pid_t	pid;
 	int		status;
+	t_cmd	*head;
 
+	head = parsecmd(buffer);
+	if (!head)
+		return ;
+	sh->head = head; // Store head before fork
 	pid = fork1();
 	if (pid == 0)
-		runcmd(parsecmd(buffer), sh);
+	{
+		runcmd(head, sh);
+		exit_shell(sh, 0);
+	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		sh->e_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		sh->e_code = 128 + WTERMSIG(status);
+	free_tree(head); // Free after command execution
+	sh->head = NULL; // Reset head pointer
 }
 
 /**

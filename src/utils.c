@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:13:07 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/18 16:45:59 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:34:09 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ void	*ft_memset(void *s, int c, size_t n)
 
 void	panic(char *s, int exit_code, t_shell *shell)
 {
-	if (shell)
-		cleanup_env(shell);
 	ft_putendl_fd(s, 2);
-	rl_clear_history();
-	exit(exit_code);
+	exit_shell(shell, exit_code);
 }
 
 int	fork1(void)
@@ -44,6 +41,7 @@ int	fork1(void)
 /**
  * @brief Reads a command from the standard input into the provided buffer.
  *
+
  * This function reads up to `nbuf` characters from the standard input and stores
  * them in the buffer `buf`. It ensures that the buffer is null-terminated.
  *
@@ -51,7 +49,7 @@ int	fork1(void)
  * @param nbuf The maximum number of characters to read into the buffer.
  * @return The number of characters read, or -1 if an error occurs.
  */
-int	getcmd(char	*buf, int nbuf)
+int	getcmd(char *buf, int nbuf)
 {
 	char	*input;
 
@@ -75,13 +73,13 @@ void	ft_putendl_fd(const char *s, int fd)
 {
 	if (!s)
 	{
-		write (fd, "(null)\n", 7);
+		write(fd, "(null)\n", 7);
 		return ;
 	}
 	while (*s != '\0')
 	{
-		write (fd, s, 1);
+		write(fd, s, 1);
 		s++;
 	}
-	write (fd, "\n", 1);
+	write(fd, "\n", 1);
 }

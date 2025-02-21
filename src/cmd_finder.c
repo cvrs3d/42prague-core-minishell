@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:23:36 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/18 16:44:18 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:52:22 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,27 @@
 
 static char	*create_full_path(char *path, char *cmd)
 {
+	char	*temp;
 	char	*full_path;
-	size_t	len;
 
-	len = ft_strlen(path) + ft_strlen(cmd) + 2;
-	full_path = malloc(len);
-	if (full_path == NULL)
+	temp = ft_strjoin(path, "/");
+	if (!temp)
 		panic("malloc", EXIT_MINISHEL_ERR, NULL);
-	snprintf(full_path, len, "%s/%s", path, cmd);
+	full_path = ft_strjoin(temp, cmd);
+	free(temp);
+	if (!full_path)
+		panic("malloc", EXIT_MINISHEL_ERR, NULL);
 	return (full_path);
 }
+// char	*full_path;
+// size_t	len;
+
+// len = ft_strlen(path) + ft_strlen(cmd) + 2;
+// full_path = malloc(len);
+// if (full_path == NULL)
+// 	panic("malloc", EXIT_MINISHEL_ERR, NULL);
+// snprintf(full_path, len, "%s/%s", path, cmd);
+// return (full_path);
 
 static int	check_executable(char *path, t_execcmd *ecmd)
 {

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:15:32 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/17 16:25:01 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:09:15 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	handle_cd_command(char **argv, t_shell *shell)
 		if (!home)
 		{
 			shell->e_code = -1;
-			printf("cd: HOME not set\n");
+			ft_putendl_fd("cd: HOME not set\n", 2);
 			return (1);
 		}
 		ret = chdir(home);
@@ -65,6 +65,6 @@ int	handle_cd_command(char **argv, t_shell *shell)
 		path = expand_tilde(argv[1], shell);
 	ret = chdir(path);
 	if (ret == -1)
-		return (printf("cannot cd into: %s\n", path));
+		return (ft_putendl_fd("cannot cd into:", 2), ft_putendl_fd(path, 2), 1);
 	return (free(path), ret == -1);
 }

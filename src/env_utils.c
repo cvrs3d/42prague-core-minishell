@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 14:41:45 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/14 18:36:20 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:31:56 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,17 @@ void	cleanup_env(t_shell *shell)
 	t_env	*env;
 	t_env	*next;
 
-	env = shell->env_list;
-	while (env)
+	if (shell->env_list)
 	{
-		next = env->next;
-		free(env->key);
-		free(env->value);
-		free(env);
-		env = next;
+		env = shell->env_list;
+		while (env)
+		{
+			next = env->next;
+			free(env->key);
+			free(env->value);
+			free(env);
+			env = next;
+		}
 	}
 	if (shell->envp)
 		ft_free_split(shell->envp);

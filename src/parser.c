@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/18 16:45:26 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:10:43 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ t_cmd	*parsecmd(char *s)
 	peek(&s, es, "");
 	if (s != es)
 	{
-		fprintf(stderr, "leftovers: %s\n", s);
+		ft_putendl_fd("leftovers: ", 2);
+		ft_putendl_fd(s, 2);
 		panic("syntax", EXIT_MINISHEL_ERR, NULL);
 	}
 	nulterminate(cmd);

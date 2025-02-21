@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/19 17:33:42 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:16:51 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define BACK 5
 # define OR 6
 # define AND 7
-# define MAXARGS 10
+# define MAXARGS 15
 # define WHITESPACE " \t\r\n\v"
 # define SYMBOLS "<|>&;()\"'"
 # define STDOUT 100
@@ -45,6 +45,11 @@
 # define EXIT_CMD_NOT_FOUND 127
 # define NO_BUILTIN_FOUND 404
 # define EXIT_MINISHEL_ERR 2
+
+typedef struct s_cmd
+{
+	int	type;
+}	t_cmd;
 
 typedef struct s_env
 {
@@ -58,12 +63,8 @@ typedef struct s_shell
 	t_env	*env_list;
 	char	**envp;
 	int		e_code;
+	t_cmd	*head;
 }	t_shell;
-
-typedef struct s_cmd
-{
-	int	type;
-}	t_cmd;
 
 typedef struct s_execcmd
 {
