@@ -6,38 +6,58 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 20:13:41 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 13:04:41 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:05:57 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// static bool	check_quotes(char *str)
+// {
+// 	int		i;
+// 	int		d_quote;
+// 	int		s_quote;
+// 	int		quote_count;
+
+// 	i = 0;
+// 	d_quote = -1;
+// 	s_quote = -1;
+// 	quote_count = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '\"')
+// 		{
+// 			d_quote *= -1;
+// 			quote_count += d_quote;
+// 		}
+// 		else if (str[i] == '\'')
+// 		{
+// 			s_quote *= -1;
+// 			quote_count += s_quote;
+// 		}
+// 		i++;
+// 	}
+// 	return (quote_count == 0 && d_quote < 0 && s_quote < 0);
+// }
 static bool	check_quotes(char *str)
 {
 	int		i;
-	int		d_quote;
-	int		s_quote;
-	int		quote_count;
+	char	quote;
 
 	i = 0;
-	d_quote = -1;
-	s_quote = -1;
-	quote_count = 0;
 	while (str[i])
 	{
-		if (str[i] == '\"')
+		if (str[i] == '\'' || str[i] == '\"')
 		{
-			d_quote *= -1;
-			quote_count += d_quote;
-		}
-		else if (str[i] == '\'')
-		{
-			s_quote *= -1;
-			quote_count += s_quote;
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+				i++;
+			if (!str[i])
+				return (false);
 		}
 		i++;
 	}
-	return (quote_count == 0 && d_quote < 0 && s_quote < 0);
+	return (true);
 }
 
 static char	*expand_exit_status(char *str, int *i, t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:15:32 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/19 18:09:15 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 14:02:54 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	handle_cd_command(char **argv, t_shell *shell)
 		if (!home)
 		{
 			shell->e_code = -1;
-			ft_putendl_fd("cd: HOME not set\n", 2);
+			ft_putendl_fd("cd: HOME not set", 2);
 			return (1);
 		}
 		ret = chdir(home);

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:44:26 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/12 14:53:39 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:59:55 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*expand_variable(char *str, int *i, t_shell *shell)
 	result = join_parts(ft_substr(str, 0, *i), v_val,
 			ft_strdup(str + j));
 	free(v_name);
-	*i += ft_strlen(v_val);
+	*i += ft_strlen(v_val) - 1;
 	free(v_val);
 	free(str);
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/21 15:18:37 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:13:20 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	handle_exec_cmd(t_execcmd *ecmd, t_shell *sh)
 	if (ft_try_find_cmd(ecmd, sh) == -1)
 		panic("command not found", EXIT_FAILURE, sh);
 	execve(ecmd->argv[0], ecmd->argv, sh->envp);
+	free(ecmd->argv[0]);
 	panic("execve failed", 1, sh);
 }
 

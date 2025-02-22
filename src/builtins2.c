@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:32:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/19 17:34:36 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:16:35 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	handle_exit_command(char **argv, t_shell *shell)
 	if (argv[1])
 	{
 		e_code = ft_atoi(argv[1]);
-		if (e_code == 0)
+		if (e_code == 0 && !ft_isstralnum(argv[1]))
 		{
 			printf("integer required %s\n", argv[1]);
 			shell->e_code = EXIT_CMD_NOT_FOUND;

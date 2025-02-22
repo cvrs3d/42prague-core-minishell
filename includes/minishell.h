@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/21 15:16:51 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:41:52 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *s);
 char	*ft_strchr(const char *s, int c);
+bool	ft_isstralnum(char *str);
 /*
 	***************************
 */
@@ -230,5 +231,6 @@ void	free_and(t_andcmd *acmd);
 void	free_or(t_orcmd *acmd);
 void	free_back(t_backcmd *bcmd);
 bool	is_non_fork_cd(char **argv);
+void	ft_sig_child_handler(int sig);
 
 #endif

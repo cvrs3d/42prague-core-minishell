@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:15:14 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/19 17:33:48 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:09:26 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	free_redir(t_redircmd *rcmd)
 	if (!rcmd)
 		return ;
 	free_tree(rcmd->cmd);
-	free(rcmd->file);
+	// free(rcmd->file); - invalid
 	free(rcmd);
 }
 

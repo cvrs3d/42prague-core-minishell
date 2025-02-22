@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/21 15:29:34 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:51:20 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	execute_command(char *buffer, t_shell *sh)
 	pid = fork1();
 	if (pid == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, ft_sig_child_handler);
 		runcmd(head, sh);
 		exit_shell(sh, 0);
 	}
