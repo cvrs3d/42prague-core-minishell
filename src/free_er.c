@@ -6,13 +6,13 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 19:15:14 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 15:41:17 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:20:14 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_non_fork_cd(char **argv)
+bool	is_non_fork(char **argv)
 {
 	int	argc;
 
