@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/19 18:10:43 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:34:26 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_cmd			*nulterminate(t_cmd *cmd);
 
 static void	process_token(t_execcmd *cmd, int *argc, char *q, char *eq)
 {
+	if (!cmd)
+		return ;
 	cmd->argv[*argc] = q;
 	cmd->eargv[*argc] = eq;
 	(*argc)++;
@@ -42,6 +44,8 @@ static t_cmd	*parse_arguments(t_cmd *ret, char **ps, char *es)
 	int			tok;
 
 	cmd = (t_execcmd *)ret;
+	if (!cmd)
+		return (NULL);
 	argc = 0;
 	while (!peek(ps, es, "|)&;"))
 	{
@@ -49,12 +53,12 @@ static t_cmd	*parse_arguments(t_cmd *ret, char **ps, char *es)
 		if (tok == 0)
 			break ;
 		if (tok != 'a')
-			panic("syntax", EXIT_MINISHEL_ERR, NULL);
+			return (NULL);
 		process_token(cmd, &argc, q, eq);
 		ret = parseredirs(ret, ps, es);
 	}
-	cmd->argv[argc] = 0;
-	cmd->eargv[argc] = 0;
+	if (cmd->argv[argc] == NULL && cmd->eargv[argc] == NULL)
+		ft_norm1(cmd->argv[argc], cmd->eargv[argc]);
 	return (ret);
 }
 
@@ -66,7 +70,11 @@ t_cmd	*parseexec(char **ps, char *es)
 		return (parseblock(ps, es));
 	ret = execcmd();
 	ret = parseredirs(ret, ps, es);
+	if (!ret)
+		return (NULL);
 	ret = parse_arguments(ret, ps, es);
+	if (!ret)
+		return (NULL);
 	return (ret);
 }
 
@@ -94,7 +102,8 @@ t_cmd	*parsecmd(char *s)
 	{
 		ft_putendl_fd("leftovers: ", 2);
 		ft_putendl_fd(s, 2);
-		panic("syntax", EXIT_MINISHEL_ERR, NULL);
+		free_tree(cmd);
+		return (NULL);
 	}
 	nulterminate(cmd);
 	return (cmd);

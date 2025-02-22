@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:07:56 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 15:44:10 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:34:55 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,14 @@ void	exit_shell(t_shell *shell, int exit_code)
 	}
 	rl_clear_history();
 	exit(exit_code);
+}
+
+// {
+// 	cmd->argv[argc] = 0;
+// 	cmd->eargv[argc] = 0;
+// }
+void	ft_norm1(char *p1, char *p2)
+{
+	p1 = 0;
+	p2 = 0;
 }

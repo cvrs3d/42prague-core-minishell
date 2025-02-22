@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 16:01:03 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/18 16:45:47 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:32:39 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
  * @param es    Pointer to the end of the input string
  * @return      Pointer to the parsed command structure (t_cmd)
  *
- * This function parses a block of commands from the input string starting at *ps
+
+* This function parses a block of commands from the input string starting at *ps
  * until it reaches es. It handles command blocks enclosed in parentheses and
  * returns a parsed command structure.
  */
@@ -28,11 +29,19 @@ t_cmd	*parseblock(char **ps, char *es)
 	t_cmd	*cmd;
 
 	if (!peek(ps, es, "("))
-		panic("parseblock", EXIT_MINISHEL_ERR, NULL);
+	{
+		ft_putendl_fd("Missing ')' ", 2);
+		return (NULL);
+	}
 	gettoken(ps, es, 0, 0);
 	cmd = parseline(ps, es);
+	if (!cmd)
+		return (NULL);
 	if (!peek(ps, es, ")"))
-		panic("syntax - missing )", EXIT_MINISHEL_ERR, NULL);
+	{
+		ft_putendl_fd("Missing ')' ", 2);
+		return (free_tree(cmd), NULL);
+	}
 	gettoken(ps, es, 0, 0);
 	cmd = parseredirs(cmd, ps, es);
 	return (cmd);
@@ -59,7 +68,10 @@ t_cmd	*parseredirs(t_cmd *cmd, char **ps, char *es)
 	{
 		tok = gettoken(ps, es, 0, 0);
 		if (gettoken(ps, es, &q, &eq) != 'a')
-			panic("Missing file for redirection", EXIT_MINISHEL_ERR, NULL);
+		{
+			ft_putendl_fd("Missing redirection", 2);
+			return (free_tree(cmd), NULL);
+		}
 		if (tok == '<')
 			cmd = redircmd(cmd, q, eq, STDIN);
 		else if (tok == '>')
@@ -90,6 +102,8 @@ t_cmd	*parsepipe(char **ps, char *es)
 	int		tok;
 
 	cmd = parseexec(ps, es);
+	if (!cmd)
+		return (NULL);
 	if (peek(ps, es, "|&"))
 	{
 		tok = gettoken(ps, es, 0, 0);
@@ -118,6 +132,8 @@ t_cmd	*parseline(char **ps, char *es)
 	t_cmd	*cmd;
 
 	cmd = parsepipe(ps, es);
+	if (!cmd)
+		return (NULL);
 	while (peek(ps, es, "&"))
 	{
 		gettoken(ps, es, 0, 0);

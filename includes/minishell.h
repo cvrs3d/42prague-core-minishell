@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 18:21:19 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:35:04 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,4 +235,6 @@ void	ft_sig_child_handler(int sig);
 bool	ft_isdigit(int c);
 void	ft_close_descriptors(int *p);
 bool	is_empty_or_spaces(const char *str);
+void	ft_norm1(char *p1, char *p2);
+
 #endif

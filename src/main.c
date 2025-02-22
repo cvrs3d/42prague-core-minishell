@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:09:30 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 18:24:51 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:25:47 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ static void	execute_command(char *buffer, t_shell *sh)
 
 	head = parsecmd(buffer);
 	if (!head)
+	{
+		sh->e_code = EXIT_MINISHEL_ERR;
 		return ;
+	}
 	sh->head = head;
 	pid = fork1();
 	if (pid == 0)
@@ -54,8 +57,6 @@ static void	execute_command(char *buffer, t_shell *sh)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		sh->e_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		sh->e_code = 128 + WTERMSIG(status);
 	free_tree(head);
 	sh->head = NULL;
 }
