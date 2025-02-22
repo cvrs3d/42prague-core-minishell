@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:18:05 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 13:13:20 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:45:58 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,15 @@ static void	handle_pipe_cmd(t_pipecmd *pcmd, t_shell *sh)
 		close(p[1]);
 		runcmd(pcmd->right, sh);
 	}
-	close(p[0]);
-	close(p[1]);
+	ft_close_descriptors(p);
 	waitpid(-1, NULL, 0);
 	waitpid(-1, NULL, 0);
 }
+	// close(p[0]);
+	// close(p[1]);
+	// close(0);
+	// // close(1);
+	// // close(2);
 
 static void	handle_list_cmd(t_listcmd *lcmd, t_shell *sh)
 {

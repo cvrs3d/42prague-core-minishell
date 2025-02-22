@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 13:41:52 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/22 17:50:38 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,5 +232,7 @@ void	free_or(t_orcmd *acmd);
 void	free_back(t_backcmd *bcmd);
 bool	is_non_fork_cd(char **argv);
 void	ft_sig_child_handler(int sig);
-
+bool	ft_isdigit(int c);
+void	ft_close_descriptors(int *p);
+bool	is_empty_or_spaces(const char *str);
 #endif
