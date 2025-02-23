@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:10:06 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 20:35:04 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/23 11:53:35 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define EXIT_CMD_NOT_FOUND 127
 # define NO_BUILTIN_FOUND 404
 # define EXIT_MINISHEL_ERR 2
+# define NO_CMD "/usr/local/sbin/"
 
 typedef struct s_cmd
 {

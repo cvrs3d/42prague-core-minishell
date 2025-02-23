@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 13:50:02 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/15 14:55:35 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/23 11:25:27 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	handle_or_cmd(t_orcmd *lcmd, t_shell *sh)
 		run_next = 128 + WTERMSIG(code_exit);
 	if (run_next != 0)
 		runcmd(lcmd->right, sh);
-	exit(run_next);
+	exit_shell(sh, run_next);
 }
 
 void	handle_and_cmd(t_andcmd *lcmd, t_shell *sh)
@@ -93,5 +93,5 @@ void	handle_and_cmd(t_andcmd *lcmd, t_shell *sh)
 		run_next = 128 + WTERMSIG(code_exit);
 	if (run_next == 0)
 		runcmd(lcmd->right, sh);
-	exit(run_next);
+	exit_shell(sh, run_next);
 }

@@ -6,7 +6,7 @@
 /*   By: yustinov <yustinov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 13:11:47 by yustinov          #+#    #+#             */
-/*   Updated: 2025/02/22 20:34:26 by yustinov         ###   ########.fr       */
+/*   Updated: 2025/02/23 11:44:02 by yustinov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ static void	process_token(t_execcmd *cmd, int *argc, char *q, char *eq)
 {
 	if (!cmd)
 		return ;
-	cmd->argv[*argc] = q;
-	cmd->eargv[*argc] = eq;
+	if (cmd->argv[*argc] == NULL && cmd->eargv[*argc] == NULL)
+	{
+		cmd->argv[*argc] = q;
+		cmd->eargv[*argc] = eq;
+	}
 	(*argc)++;
 	if (*argc > MAXARGS)
 		panic("too many args", EXIT_MINISHEL_ERR, NULL);
